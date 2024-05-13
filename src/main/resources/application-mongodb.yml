@@ -11,3 +11,6 @@ spring:
   config:
     activate:
       on-profile: beta
+  data:
+    mongodb:
+      uri: {MONGO_URL}/forkfork
