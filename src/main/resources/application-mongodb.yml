@@ -13,4 +13,4 @@ spring:
       on-profile: beta
   data:
     mongodb:
-      uri: {MONGO_URL}/forkfork
+      uri: {MONGO_URL}
