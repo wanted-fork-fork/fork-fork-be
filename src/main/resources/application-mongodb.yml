@@ -1,0 +1,13 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/forkfork
+
+---
+spring:
+  config:
+    activate:
+      on-profile: beta
