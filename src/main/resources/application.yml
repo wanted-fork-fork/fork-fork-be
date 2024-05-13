@@ -1,0 +1,4 @@
+spring:
+  application:
+    name: forkfork
+uri: mongodb://localhost:27017/forkfork
