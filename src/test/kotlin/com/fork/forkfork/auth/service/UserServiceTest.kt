@@ -27,7 +27,7 @@ internal class UserServiceTest {
         val user = User("test", "test", 1, OAuthCompany.KAKAO)
 
         // when
-        userService.createUser(user)
+        userService.getUser(user)
 
         // then
         verify(exactly = 1) { userRepository.findByOauthIdAndOauthCompany(any(), any()) }
@@ -41,7 +41,7 @@ internal class UserServiceTest {
         val user = User("test", "test", 1, OAuthCompany.KAKAO)
 
         // when
-        userService.createUser(user)
+        userService.getUser(user)
 
         // then
         verify(exactly = 1) { userRepository.findByOauthIdAndOauthCompany(any(), any()) }

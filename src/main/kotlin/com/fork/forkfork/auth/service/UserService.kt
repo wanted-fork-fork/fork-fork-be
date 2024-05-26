@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service
 
 @Service
 class UserService(val userRepository: UserRepository) {
-    fun createUser(user: User): User {
+    fun getUser(user: User): User {
         userRepository.findByOauthIdAndOauthCompany(user.oauthId, user.oauthCompany)?.let { return it }
-        return userRepository.save(user)
+        return saveUser(user)
     }
+
+    private fun saveUser(user: User): User = userRepository.save(user)
 }

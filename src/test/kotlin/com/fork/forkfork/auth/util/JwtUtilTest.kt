@@ -12,10 +12,10 @@ internal class JwtUtilTest {
 
         // when
         val token = jwtUtil.createToken(USER_ID)
-        val parsedUserId = jwtUtil.getUserId(token)
+        val claims = jwtUtil.getClaims(token)
 
         // then
-        Assertions.assertThat(parsedUserId).isEqualTo(USER_ID.toString())
+        Assertions.assertThat(claims.subject).isEqualTo(USER_ID.toString())
     }
 
     @Test
@@ -61,7 +61,7 @@ internal class JwtUtilTest {
 
     companion object {
         private const val EXPIRATION_TIME = 1000 * 60L
-        private const val USER_ID = 1L
+        private const val USER_ID = "TEST"
         private const val SECRET = "Yzk4YWFiMWEtNjc2My00MWYwLWJhY2YtZWMyYTI3NTFhNjU1"
     }
 }
