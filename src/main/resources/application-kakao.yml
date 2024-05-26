@@ -1,0 +1,4 @@
+kakao:
+  auth:
+    redirect-uri: ${REDIRECT_URI}
+    rest-api-key: ${REST_API_KEY}

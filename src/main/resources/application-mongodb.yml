@@ -1,4 +1,10 @@
 spring:
+  data:
+    mongodb:
+      auto-index-creation: true
+
+---
+spring:
   config:
     activate:
       on-profile: local
