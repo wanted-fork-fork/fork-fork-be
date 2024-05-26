@@ -20,6 +20,7 @@ repositories {
 
 val springCloudVersion = "2023.0.1"
 val swaggerVersion = "2.2.0"
+val mockkVersion = "1.13.11"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
@@ -28,6 +29,8 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:${swaggerVersion}")
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+
+    testImplementation("io.mockk:mockk:${mockkVersion}")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
