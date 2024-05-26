@@ -22,6 +22,8 @@ repositories {
 val springCloudVersion = "2023.0.1"
 val swaggerVersion = "2.2.0"
 val mockkVersion = "1.13.11"
+val jwtVersion = "0.11.5"
+val kotlinLoggingVersion = "5.1.0"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
@@ -30,6 +32,14 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$swaggerVersion")
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+
+    // Logging
+    implementation("io.github.oshai:kotlin-logging-jvm:$kotlinLoggingVersion")
+
+    // Jwt
+    implementation("io.jsonwebtoken:jjwt-api:$jwtVersion")
+    implementation("io.jsonwebtoken:jjwt-impl:$jwtVersion")
+    implementation("io.jsonwebtoken:jjwt-jackson:$jwtVersion")
 
     testImplementation("io.mockk:mockk:$mockkVersion")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
