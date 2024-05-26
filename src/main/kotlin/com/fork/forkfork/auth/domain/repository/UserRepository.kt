@@ -6,6 +6,9 @@ import org.springframework.data.mongodb.repository.MongoRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface UserRepository: MongoRepository<User, String?> {
-    fun findByOauthIdAndOauthCompany(oauthId: Long, oauthCompany: OAuthCompany): User?
+interface UserRepository : MongoRepository<User, String?> {
+    fun findByOauthIdAndOauthCompany(
+        oauthId: Long,
+        oauthCompany: OAuthCompany,
+    ): User?
 }

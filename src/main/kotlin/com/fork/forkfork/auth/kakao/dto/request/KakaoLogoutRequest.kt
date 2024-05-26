@@ -6,5 +6,5 @@ class KakaoLogoutRequest(
     @JsonProperty("target_id")
     val targetId: Long,
     @JsonProperty("target_id_type")
-    val targetIdType: String = "user_id"
+    val targetIdType: String = "user_id",
 )

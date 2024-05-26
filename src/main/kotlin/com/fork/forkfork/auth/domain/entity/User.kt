@@ -13,5 +13,5 @@ class User(
     val oauthId: Long,
     val oauthCompany: OAuthCompany,
     @Id
-    var id: String? = null
+    var id: String? = null,
 )

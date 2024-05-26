@@ -11,11 +11,11 @@ import io.mockk.verify
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
-
 @ExtendWith(MockKExtension::class)
 internal class UserServiceTest {
     @InjectMockKs
     private lateinit var userService: UserService
+
     @MockK
     private lateinit var userRepository: UserRepository
 

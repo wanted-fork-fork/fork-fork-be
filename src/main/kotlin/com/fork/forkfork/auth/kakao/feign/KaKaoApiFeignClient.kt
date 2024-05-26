@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RequestHeader
 interface KaKaoApiFeignClient {
     @GetMapping("/v2/user/me")
     fun getKakaoUserInfo(
-        @RequestHeader headers: Map<String, String>
+        @RequestHeader headers: Map<String, String>,
     ): KakaoUserInfoResponse
 
     @PostMapping("/v1/user/logout")
     fun logout(
         @RequestHeader headers: Map<String, String>,
-        @RequestBody request: KakaoLogoutRequest
+        @RequestBody request: KakaoLogoutRequest,
     ): KakaoLogoutResponse
 }

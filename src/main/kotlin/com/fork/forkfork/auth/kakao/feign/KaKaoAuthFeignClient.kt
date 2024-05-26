@@ -14,6 +14,6 @@ fun interface KaKaoAuthFeignClient {
         @RequestParam("client_id") restApiKey: String,
         @RequestParam("redirect_uri") redirectUrl: String,
         @RequestParam("code") code: String,
-        @RequestParam("grant_type") grantType: String
+        @RequestParam("grant_type") grantType: String,
     ): KakaoAccessTokenResponse
 }

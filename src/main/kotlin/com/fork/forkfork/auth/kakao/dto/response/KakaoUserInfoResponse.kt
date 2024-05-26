@@ -7,10 +7,10 @@ class KakaoUserInfoResponse(
     @JsonProperty("connected_at")
     val connectedAt: String,
     @JsonProperty("kakao_account")
-    val kakaoAccount: KakaoAccount
+    val kakaoAccount: KakaoAccount,
 ) {
     class KakaoAccount(
-        val profile: KakaoProfile
+        val profile: KakaoProfile,
     )
 
     class KakaoProfile(
@@ -18,6 +18,6 @@ class KakaoUserInfoResponse(
         @JsonProperty("thumbnail_image_url")
         val thumbnailImageUrl: String?,
         @JsonProperty("profile_image_url")
-        val profileImageUrl: String?
+        val profileImageUrl: String?,
     )
 }
