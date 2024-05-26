@@ -10,5 +10,5 @@ class Token(
     val userId: String,
     val accessToken: String,
     val refreshToken: String,
-    val expiredAt: OffsetDateTime,
+    val refreshExpiredAt: OffsetDateTime,
 )

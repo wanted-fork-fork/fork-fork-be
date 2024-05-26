@@ -1,5 +1,6 @@
 package com.fork.forkfork.auth.util
 
+import com.fork.forkfork.auth.domain.enums.TokenType
 import com.fork.forkfork.auth.properties.JwtProperties
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.jsonwebtoken.Claims
@@ -21,12 +22,21 @@ class JwtUtil(private val jwtProperties: JwtProperties) {
     private val log = KotlinLogging.logger { }
     val key: Key = Keys.hmacShaKeyFor(jwtProperties.secret.toByteArray())
 
-    fun createToken(userId: String): String =
+    fun createToken(
+        userId: String,
+        tokenType: TokenType,
+    ): String =
         Jwts.builder()
             .setClaims(Jwts.claims().setSubject(userId))
-            .setExpiration(Date(System.currentTimeMillis() + jwtProperties.expirationTime))
+            .setExpiration(Date(System.currentTimeMillis() + getTokenExpirationTime(tokenType)))
             .signWith(key, SignatureAlgorithm.HS256)
             .compact()
+
+    private fun getTokenExpirationTime(tokenType: TokenType): Long =
+        when (tokenType) {
+            TokenType.ACCESS -> jwtProperties.expirationTime
+            TokenType.REFRESH -> jwtProperties.expirationTime * 5
+        }
 
     fun getClaims(token: String): Claims {
         return Jwts.parserBuilder()
