@@ -1,6 +1,5 @@
 package com.fork.forkfork.auth.util
 
-import com.fork.forkfork.auth.domain.enums.OAuthCompany
 import com.fork.forkfork.auth.domain.enums.TokenType
 import com.fork.forkfork.auth.properties.JwtProperties
 import io.github.oshai.kotlinlogging.KotlinLogging
@@ -26,17 +25,12 @@ class JwtUtil(private val jwtProperties: JwtProperties) {
     fun createToken(
         userId: String,
         tokenType: TokenType,
-        oauthCompany: OAuthCompany,
-    ): String {
-        val claims = Jwts.claims().setSubject(userId)
-        claims[OAUTH_COMPANY] = oauthCompany
-
-        return Jwts.builder().setClaims(
-            claims,
-        ).setExpiration(
-            Date(System.currentTimeMillis() + getTokenExpirationTime(tokenType)),
-        ).signWith(key, SignatureAlgorithm.HS256).compact()
-    }
+    ): String =
+        Jwts.builder()
+            .setClaims(Jwts.claims().setSubject(userId))
+            .setExpiration(Date(System.currentTimeMillis() + getTokenExpirationTime(tokenType)))
+            .signWith(key, SignatureAlgorithm.HS256)
+            .compact()
 
     private fun getTokenExpirationTime(tokenType: TokenType): Long =
         when (tokenType) {
@@ -45,7 +39,11 @@ class JwtUtil(private val jwtProperties: JwtProperties) {
         }
 
     fun getClaims(token: String): Claims {
-        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).body
+        return Jwts.parserBuilder()
+            .setSigningKey(key)
+            .build()
+            .parseClaimsJws(token)
+            .body
     }
 
     fun validateToken(token: String): Boolean {
@@ -74,6 +72,5 @@ class JwtUtil(private val jwtProperties: JwtProperties) {
         private const val INVALID_JWT_TOKEN_ERROR_MESSAGE = "Invalid JWT Token"
         private const val EXPIRATION_TIME_ERROR_MESSAGE = "Expired JWT Token"
         private const val UNSUPPORTED_JWT_TOKEN_ERROR_MESSAGE = "Unsupported JWT Token"
-        private const val OAUTH_COMPANY = "oauthCompany"
     }
 }

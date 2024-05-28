@@ -1,7 +1,5 @@
 package com.fork.forkfork.auth.util
 
-import com.fork.forkfork.auth.domain.enums.OAuthCompany
-import com.fork.forkfork.auth.domain.enums.TokenType
 import com.fork.forkfork.auth.properties.JwtProperties
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
@@ -13,11 +11,11 @@ internal class JwtUtilTest {
         val jwtUtil = getJwtUtil(EXPIRATION_TIME)
 
         // when
-        val token = jwtUtil.createToken(USER_ID, TokenType.ACCESS, oauthCompany)
+        val token = jwtUtil.createToken(USER_ID)
         val claims = jwtUtil.getClaims(token)
 
         // then
-        Assertions.assertThat(claims.subject).isEqualTo(USER_ID)
+        Assertions.assertThat(claims.subject).isEqualTo(USER_ID.toString())
     }
 
     @Test
@@ -26,7 +24,7 @@ internal class JwtUtilTest {
         val jwtUtil = getJwtUtil(EXPIRATION_TIME)
 
         // when
-        val token = jwtUtil.createToken(USER_ID, TokenType.ACCESS, oauthCompany)
+        val token = jwtUtil.createToken(USER_ID)
         val isValid = jwtUtil.validateToken(token)
 
         // then
@@ -39,7 +37,7 @@ internal class JwtUtilTest {
         val jwtUtil = getJwtUtil(EXPIRATION_TIME)
 
         // when
-        val token = jwtUtil.createToken(USER_ID, TokenType.ACCESS, oauthCompany)
+        val token = jwtUtil.createToken(USER_ID)
         val isValid = jwtUtil.validateToken(token + "invalid")
 
         // then
@@ -52,7 +50,7 @@ internal class JwtUtilTest {
         val jwtUtil = getJwtUtil(0)
 
         // when
-        val token = jwtUtil.createToken(USER_ID, TokenType.ACCESS, oauthCompany)
+        val token = jwtUtil.createToken(USER_ID)
         val isValid = jwtUtil.validateToken(token)
 
         // then
@@ -65,6 +63,5 @@ internal class JwtUtilTest {
         private const val EXPIRATION_TIME = 1000 * 60L
         private const val USER_ID = "TEST"
         private const val SECRET = "Yzk4YWFiMWEtNjc2My00MWYwLWJhY2YtZWMyYTI3NTFhNjU1"
-        private val oauthCompany = OAuthCompany.KAKAO
     }
 }
