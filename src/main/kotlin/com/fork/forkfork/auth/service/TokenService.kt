@@ -15,4 +15,8 @@ class TokenService(val tokenRepository: TokenRepository, val jwtUtil: JwtUtil) {
         tokenRepository.save(Token(userId, accessToken, refreshToken, jwtUtil.getExpirationDate(refreshToken)))
         return UserTokenDto(accessToken, refreshToken)
     }
+
+    fun expireToken(userId: String) {
+        tokenRepository.deleteByUserId(userId)
+    }
 }

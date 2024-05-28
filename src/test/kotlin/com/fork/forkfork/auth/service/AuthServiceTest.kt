@@ -12,12 +12,15 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(MockKExtension::class)
-internal class UserServiceTest {
+internal class AuthServiceTest {
     @InjectMockKs
-    private lateinit var userService: UserService
+    private lateinit var authService: AuthService
 
     @MockK
     private lateinit var userRepository: UserRepository
+
+    @MockK
+    private lateinit var tokenService: TokenService
 
     @Test
     fun `사용자를 초기 생성할 때 save를 호출한다`() {
@@ -27,7 +30,7 @@ internal class UserServiceTest {
         val user = User("test", "test", 1, OAuthCompany.KAKAO)
 
         // when
-        userService.getUser(user)
+        authService.getUser(user)
 
         // then
         verify(exactly = 1) { userRepository.findByOauthIdAndOauthCompany(any(), any()) }
@@ -41,7 +44,7 @@ internal class UserServiceTest {
         val user = User("test", "test", 1, OAuthCompany.KAKAO)
 
         // when
-        userService.getUser(user)
+        authService.getUser(user)
 
         // then
         verify(exactly = 1) { userRepository.findByOauthIdAndOauthCompany(any(), any()) }
