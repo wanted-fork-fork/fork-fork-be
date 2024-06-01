@@ -1,0 +1,11 @@
+package com.fork.forkfork.exception.handler
+
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.ExceptionHandler
+import org.springframework.web.bind.annotation.RestControllerAdvice
+
+@RestControllerAdvice
+class GlobalExceptionHandler {
+    @ExceptionHandler(InvalidTokenException::class)
+    fun handleInvalidTokenException(): ResponseEntity<String> = ResponseEntity.badRequest().body("Invalid token")
+}
