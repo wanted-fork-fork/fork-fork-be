@@ -13,8 +13,6 @@ import io.jsonwebtoken.security.Keys
 import io.jsonwebtoken.security.SignatureException
 import org.springframework.stereotype.Component
 import java.security.Key
-import java.time.OffsetDateTime
-import java.time.ZoneId
 import java.util.Date
 
 @Component
@@ -62,10 +60,6 @@ class JwtUtil(private val jwtProperties: JwtProperties) {
             log.info(e) { INVALID_JWT_TOKEN_ERROR_MESSAGE }
         }
         return false
-    }
-
-    fun getExpirationDate(token: String): OffsetDateTime {
-        return OffsetDateTime.ofInstant(getClaims(token).expiration.toInstant(), ZoneId.systemDefault())
     }
 
     companion object {
