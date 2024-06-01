@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository
 @Repository
 interface TokenRepository : MongoRepository<Token, String?> {
     fun deleteByUserId(userId: String)
+
+    fun findByRefreshToken(refreshToken: String): Token?
 }

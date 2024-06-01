@@ -19,8 +19,13 @@ class JwtAuthFilter(private val jwtUtil: JwtUtil) : OncePerRequestFilter() {
             filterChain.doFilter(request, response)
             return
         }
+
         val token = getBearerToken(request.getHeader(AUTHORIZATION))
-        jwtUtil.validateToken(token)
+        if (!jwtUtil.validateToken(token)) {
+            filterChain.doFilter(request, response)
+            return
+        }
+
         val userId = jwtUtil.getClaims(token).subject
         SecurityContextHolder.getContext().authentication = UsernamePasswordAuthenticationToken(userId, null, emptyList())
         filterChain.doFilter(request, response)
