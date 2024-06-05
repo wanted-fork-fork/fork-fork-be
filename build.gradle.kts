@@ -24,6 +24,7 @@ val swaggerVersion = "2.2.0"
 val mockkVersion = "1.13.11"
 val jwtVersion = "0.11.5"
 val kotlinLoggingVersion = "5.1.0"
+val awsS3Version = "1.12.729"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
@@ -41,6 +42,9 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt-api:$jwtVersion")
     implementation("io.jsonwebtoken:jjwt-impl:$jwtVersion")
     implementation("io.jsonwebtoken:jjwt-jackson:$jwtVersion")
+
+    // https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-s3
+    implementation("com.amazonaws:aws-java-sdk-s3:$awsS3Version")
 
     testImplementation("io.mockk:mockk:$mockkVersion")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
