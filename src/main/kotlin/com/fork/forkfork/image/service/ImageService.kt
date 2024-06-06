@@ -6,17 +6,13 @@ import com.amazonaws.services.s3.model.ObjectMetadata
 import com.amazonaws.services.s3.model.PutObjectRequest
 import com.fork.forkfork.image.exception.ImageUploadException
 import com.fork.forkfork.image.properties.S3KeyProperties
-import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 import java.util.UUID
 
 @Service
 class ImageService(val amazonS3Client: AmazonS3Client, val s3KeyProperties: S3KeyProperties) {
-    private val logger = KotlinLogging.logger {}
-
     fun uploadImage(image: MultipartFile): String {
-        logger.error { "Uploading image / start" }
         val originName = image.originalFilename
         requireNotNull(originName) { FILE_NOT_FOUND_ERROR_MESSAGE }
 
@@ -24,12 +20,11 @@ class ImageService(val amazonS3Client: AmazonS3Client, val s3KeyProperties: S3Ke
         val metaData = createMetaData(image)
 
         try {
-            logger.error { "Uploading image / putImageToS3" }
             putImageToS3(image, newImageName, metaData)
         } catch (e: Exception) {
             throw ImageUploadException(FAILED_TO_UPLOAD_IMAGE_ERROR_MESSAGE, e)
         }
-        logger.error { "Uploading image / finish" }
+
         return getS3ImageUrl(newImageName)
     }
 

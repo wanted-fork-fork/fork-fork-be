@@ -15,9 +15,4 @@ class ImageController(val imageService: ImageService) {
     fun uploadImage(
         @RequestParam image: MultipartFile,
     ): ResponseEntity<String> = ResponseEntity.ok(imageService.uploadImage(image))
-
-    @PostMapping("/test", consumes = ["multipart/form-data"])
-    fun test(
-        @RequestParam image: MultipartFile,
-    ): ResponseEntity<String> = ResponseEntity.ok("test")
 }
