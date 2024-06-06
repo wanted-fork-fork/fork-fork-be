@@ -2,6 +2,7 @@ package com.fork.forkfork.image.controller
 
 import com.fork.forkfork.image.service.ImageService
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
@@ -20,4 +21,10 @@ class ImageController(val imageService: ImageService) {
     fun test(
         @RequestParam image: MultipartFile,
     ): ResponseEntity<String> = ResponseEntity.ok("test")
+
+    @PostMapping("/test2")
+    fun test2(): ResponseEntity<String> = ResponseEntity.ok("test2")
+
+    @GetMapping("/test3")
+    fun test3(): ResponseEntity<String> = ResponseEntity.ok("test3")
 }
