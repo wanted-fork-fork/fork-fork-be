@@ -15,4 +15,4 @@ class User(
     val oauthCompany: OAuthCompany,
     @Id
     var id: String? = null,
-): BaseAuditor()
+) : BaseAuditor()

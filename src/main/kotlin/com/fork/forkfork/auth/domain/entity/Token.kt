@@ -10,4 +10,4 @@ class Token(
     val userId: String,
     val accessToken: String,
     val refreshToken: String,
-): BaseAuditor()
+) : BaseAuditor()

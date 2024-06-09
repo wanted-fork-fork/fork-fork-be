@@ -22,4 +22,3 @@ class MongoAuditorConfig {
     @Bean("auditingDateTimeProvider")
     fun dateTimeProvider(): DateTimeProvider = DateTimeProvider { Optional.of(OffsetDateTime.now()) }
 }
-
