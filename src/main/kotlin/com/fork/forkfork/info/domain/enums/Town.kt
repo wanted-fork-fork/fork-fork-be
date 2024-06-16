@@ -1,6 +1,6 @@
 package com.fork.forkfork.info.domain.enums
 
-enum class Region(val city: City, val regionName: String) {
+enum class Town(val city: City, val townName: String) {
     GANGNAM(City.SEOUL, "강남구"),
     GANGDONG(City.SEOUL, "강동구"),
     GANGBUK(City.SEOUL, "강북구"),
