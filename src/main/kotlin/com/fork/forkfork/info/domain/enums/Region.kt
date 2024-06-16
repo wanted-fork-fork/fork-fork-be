@@ -1,4 +1,4 @@
-package com.fork.forkfork.domain.enums
+package com.fork.forkfork.info.domain.enums
 
 enum class Region(val city: City, val regionName: String) {
     GANGNAM(City.SEOUL, "강남구"),

@@ -1,4 +1,4 @@
-package com.fork.forkfork.domain.enums
+package com.fork.forkfork.info.domain.enums
 
 enum class City(val cityName: String) {
     SEOUL("서울"),
