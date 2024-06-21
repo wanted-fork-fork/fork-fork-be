@@ -1,3 +1,15 @@
 package com.fork.forkfork.info.domain.entity
 
-class IdealPartner
+class IdealPartner(
+    val ageRange: IntRange?,
+    val heightRange: IntRange?,
+    val style: String?,
+    val images: List<Image>?,
+    val location: Location?,
+    val hobbies: List<String>?,
+    val religion: Religion?,
+    val drinking: Drinking?,
+    val smoking: Smoking?,
+    val requiredOptions: List<String>?,
+    val toMatchMaker: String?,
+)
