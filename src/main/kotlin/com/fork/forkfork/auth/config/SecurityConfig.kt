@@ -54,7 +54,15 @@ class SecurityConfig(val jwtUtil: JwtUtil) {
     }
 
     companion object {
-        private val WHITE_LIST = arrayOf("/api/v1/auth/kakao/login", "api/v1/auth/refresh-token", "/", "/swagger-ui/**", "/v3/api-docs/**")
+        private val WHITE_LIST =
+            arrayOf(
+                "/api/v1/auth/kakao/login",
+                "api/v1/auth/refresh-token",
+                "/",
+                "/swagger-ui/**",
+                "/v3/api-docs/**",
+                "/api/v1/info/save/*",
+            )
         private const val BEARER_TOKEN = "Bearer Token"
         private const val BEARER = "Bearer"
         private const val JWT = "JWT"
