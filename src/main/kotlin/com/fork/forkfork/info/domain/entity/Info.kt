@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document
 @Document("info")
 class Info(
     val matchMakerId: String,
-    val authorId: String? = null,
+    val authorId: String,
     val userInfo: UserInfo,
     val idealPartner: IdealPartner,
     @Id
