@@ -6,9 +6,10 @@ import org.springframework.data.mongodb.core.mapping.Document
 
 @Document("info")
 class Info(
-    @Id val id: String,
     val matchMakerId: String,
-    val authorId: String?,
+    val authorId: String? = null,
     val userInfo: UserInfo,
     val idealPartner: IdealPartner,
+    @Id
+    var id: String? = null,
 ) : BaseAuditor()

@@ -15,7 +15,7 @@ class UserInfo(
     val hobbies: List<String>,
     val drinking: String,
     val smoking: Smoking,
-    val introduction: String,
+    val introduction: String?,
     val pets: List<String>?,
     val foods: List<String>?,
     val dateStyle: List<String>?,
