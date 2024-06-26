@@ -1,8 +1,8 @@
 package com.fork.forkfork.info.domain.entity
 
 class IdealPartner(
-    val ageRange: IntRange?,
-    val heightRange: IntRange?,
+    val ageRange: NumberRange?,
+    val heightRange: NumberRange?,
     val style: String?,
     val images: List<Image>?,
     val location: Location?,
