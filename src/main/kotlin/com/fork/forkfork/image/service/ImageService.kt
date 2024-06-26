@@ -4,6 +4,7 @@ import com.amazonaws.services.s3.AmazonS3Client
 import com.amazonaws.services.s3.model.CannedAccessControlList
 import com.amazonaws.services.s3.model.ObjectMetadata
 import com.amazonaws.services.s3.model.PutObjectRequest
+import com.fork.forkfork.image.dto.ImageDto
 import com.fork.forkfork.image.exception.ImageUploadException
 import com.fork.forkfork.image.properties.S3KeyProperties
 import org.springframework.stereotype.Service
@@ -12,7 +13,7 @@ import java.util.UUID
 
 @Service
 class ImageService(val amazonS3Client: AmazonS3Client, val s3KeyProperties: S3KeyProperties) {
-    fun uploadImage(image: MultipartFile): String {
+    fun uploadImage(image: MultipartFile): ImageDto {
         val originName = image.originalFilename
         requireNotNull(originName) { FILE_NOT_FOUND_ERROR_MESSAGE }
 
@@ -25,7 +26,7 @@ class ImageService(val amazonS3Client: AmazonS3Client, val s3KeyProperties: S3Ke
             throw ImageUploadException(FAILED_TO_UPLOAD_IMAGE_ERROR_MESSAGE, e)
         }
 
-        return getS3ImageUrl(newImageName)
+        return ImageDto(getS3ImageUrl(newImageName))
     }
 
     private fun getNewImageName(originName: String): String {
