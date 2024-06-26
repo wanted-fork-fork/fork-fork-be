@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class InfoService(val infoRepository: InfoRepository, val infoMapper: InfoMapper) {
-    fun getInfoById(id: String) = infoRepository.findById(id)
+    fun getInfoById(id: String) = infoRepository.findById(id).get()
 
     fun saveInfo(
         info: String,
