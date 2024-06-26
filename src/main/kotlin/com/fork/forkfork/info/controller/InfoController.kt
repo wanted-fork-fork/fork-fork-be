@@ -3,15 +3,20 @@ package com.fork.forkfork.info.controller
 import com.fork.forkfork.info.domain.enums.Town
 import com.fork.forkfork.info.dto.CityDto
 import com.fork.forkfork.info.dto.TownDto
+import com.fork.forkfork.info.dto.request.SaveInfoRequest
 import com.fork.forkfork.info.dto.response.CityAndTownResponse
+import com.fork.forkfork.info.service.InfoService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/v1/info")
-class InfoController {
+class InfoController(val infoService: InfoService) {
     @GetMapping("/address")
     fun getAddress(): ResponseEntity<List<CityAndTownResponse>> =
         ResponseEntity.ok()
@@ -23,4 +28,16 @@ class InfoController {
                     )
                 },
             )
+
+    @PostMapping("/save/{linkId}")
+    fun saveInfo(
+        @PathVariable linkId: String,
+        @RequestBody saveInfoRequest: SaveInfoRequest,
+    ): ResponseEntity<String> =
+        ResponseEntity.ok().body(infoService.saveInfo(linkId, saveInfoRequest.userInfo, saveInfoRequest.idealPartner))
+
+    @GetMapping("/{id}")
+    fun getInfo(
+        @PathVariable id: String,
+    ) = infoService.getInfoById(id) // TODO: 필요한 정보만 dto로 전달
 }

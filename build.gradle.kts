@@ -6,6 +6,7 @@ plugins {
     kotlin("jvm") version "1.9.23"
     kotlin("plugin.spring") version "1.9.23"
     id("org.jlleitschuh.gradle.ktlint") version "12.1.1"
+    kotlin("kapt") version "1.9.23"
 }
 
 group = "com.fork"
@@ -25,6 +26,7 @@ val mockkVersion = "1.13.11"
 val jwtVersion = "0.11.5"
 val kotlinLoggingVersion = "5.1.0"
 val awsS3Version = "1.12.729"
+val mapStructVersion = "1.5.5.Final"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
@@ -45,6 +47,11 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-s3
     implementation("com.amazonaws:aws-java-sdk-s3:$awsS3Version")
+
+    // MapStruct
+    implementation("org.mapstruct:mapstruct:$mapStructVersion")
+    kapt("org.mapstruct:mapstruct-processor:$mapStructVersion")
+    kaptTest("org.mapstruct:mapstruct-processor:$mapStructVersion")
 
     testImplementation("io.mockk:mockk:$mockkVersion")
     testImplementation("org.springframework.boot:spring-boot-starter-test")

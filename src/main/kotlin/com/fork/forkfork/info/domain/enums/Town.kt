@@ -222,4 +222,13 @@ enum class Town(val city: City, val townName: String) {
     HWASUN(City.JEOLANAM, "화순군"),
     JEJU(City.JEJU, "제주시"),
     SEOGWIPO(City.JEJU, "서귀포시"),
+    GUNWEE(City.DAEGU, "군위군"),
+    DAEGU_NAM(City.DAEGU, "남구"),
+    DALSEO(City.DAEGU, "달서구"),
+    DALSEONG(City.DAEGU, "달성군"),
+    DAEGU_DONG(City.DAEGU, "동구"),
+    DAEGU_BUK(City.DAEGU, "북구"),
+    DAEGU_SEO(City.DAEGU, "서구"),
+    SUSEONG(City.DAEGU, "수성구"),
+    DAEGU_JUNG(City.DAEGU, "중구"),
 }
