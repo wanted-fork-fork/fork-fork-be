@@ -2,7 +2,7 @@ package com.fork.forkfork.info.dto.request
 
 import com.fork.forkfork.info.domain.entity.Book
 import com.fork.forkfork.info.domain.entity.Gender
-import com.fork.forkfork.info.domain.entity.Image
+import com.fork.forkfork.info.domain.entity.InfoImage
 import com.fork.forkfork.info.domain.entity.Job
 import com.fork.forkfork.info.domain.entity.Location
 import com.fork.forkfork.info.domain.entity.MBTI
@@ -16,7 +16,7 @@ class UserInfoRequest(
     val gender: Gender,
     val birthDate: Date,
     val height: Int,
-    val images: List<Image>,
+    val images: List<InfoImage>,
     val mbti: MBTI,
     val job: Job,
     val location: Location,

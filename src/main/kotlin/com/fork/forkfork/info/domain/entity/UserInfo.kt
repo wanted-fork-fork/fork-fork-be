@@ -7,7 +7,7 @@ class UserInfo(
     val gender: Gender,
     val birthDate: Date,
     val height: Int,
-    val images: List<Image>,
+    val images: List<InfoImage>,
     val mbti: MBTI,
     val job: Job,
     val location: Location,

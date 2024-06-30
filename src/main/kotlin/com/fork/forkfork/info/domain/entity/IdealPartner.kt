@@ -4,7 +4,7 @@ class IdealPartner(
     val ageRange: NumberRange?,
     val heightRange: NumberRange?,
     val style: String?,
-    val images: List<Image>?,
+    val images: List<InfoImage>?,
     val location: Location?,
     val hobbies: List<String>?,
     val religion: Religion?,

@@ -2,7 +2,7 @@ package com.fork.forkfork.info.domain.entity
 
 class Drinking(
     val drinkingCategory: DrinkingCategory,
-    val drinkingAmount: String,
+    val drinkingAmount: String?,
 )
 
 enum class DrinkingCategory {
