@@ -15,5 +15,12 @@ class ImageController(val imageService: ImageService) {
     @PostMapping("/upload", consumes = ["multipart/form-data"])
     fun uploadImage(
         @RequestParam image: MultipartFile,
-    ): ResponseEntity<ImageDto> = ResponseEntity.ok(imageService.uploadImage(image))
+    ): ResponseEntity<ImageDto> {
+        val existedImage = imageService.isExistedImage(image)
+        if (existedImage != null) {
+            return ResponseEntity.ok(existedImage)
+        }
+        val imageDto = imageService.uploadImage(image)
+        return ResponseEntity.ok(imageDto)
+    }
 }

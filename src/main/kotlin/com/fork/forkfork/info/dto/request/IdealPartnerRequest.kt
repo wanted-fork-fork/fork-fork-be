@@ -1,7 +1,7 @@
 package com.fork.forkfork.info.dto.request
 
 import com.fork.forkfork.info.domain.entity.Drinking
-import com.fork.forkfork.info.domain.entity.Image
+import com.fork.forkfork.info.domain.entity.InfoImage
 import com.fork.forkfork.info.domain.entity.Location
 import com.fork.forkfork.info.domain.entity.NumberRange
 import com.fork.forkfork.info.domain.entity.Religion
@@ -11,7 +11,7 @@ class IdealPartnerRequest(
     val ageRange: NumberRange?,
     val heightRange: NumberRange?,
     val style: String?,
-    val images: List<Image>?,
+    val images: List<InfoImage>?,
     val location: Location?,
     val hobbies: List<String>?,
     val religion: Religion?,
