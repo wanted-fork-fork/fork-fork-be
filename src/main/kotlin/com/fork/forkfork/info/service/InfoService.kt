@@ -6,18 +6,19 @@ import com.fork.forkfork.info.domain.repository.InfoRepository
 import com.fork.forkfork.info.dto.request.IdealPartnerRequest
 import com.fork.forkfork.info.dto.request.UserInfoRequest
 import com.fork.forkfork.info.mapper.InfoMapper
+import com.fork.forkfork.link.service.LinkService
 import org.springframework.stereotype.Service
 
 @Service
-class InfoService(val infoRepository: InfoRepository, val infoMapper: InfoMapper) {
+class InfoService(val infoRepository: InfoRepository, val infoMapper: InfoMapper, val linkService: LinkService) {
     fun getInfoById(id: String) = infoRepository.findById(id).get()
 
     fun saveInfo(
-        info: String,
+        linkId: String,
         userInfo: UserInfoRequest,
         idealPartner: IdealPartnerRequest,
     ) = Info(
-        matchMakerId = info,
+        matchMakerId = linkService.getMatchMakerIdByLinkId(linkId),
         authorId = getUserIdFromSecurityContext(),
         userInfo = infoMapper.toUserInfoFromUserInfoRequest(userInfo),
         idealPartner = infoMapper.toIdealPartnerFromIdealPartnerRequest(idealPartner),

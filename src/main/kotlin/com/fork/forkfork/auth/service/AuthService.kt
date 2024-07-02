@@ -23,4 +23,6 @@ class AuthService(val userRepository: UserRepository, val tokenService: TokenSer
     }
 
     fun saveUser(user: User): User = userRepository.save(user)
+
+    fun isExistUser(userId: String): Boolean = userRepository.existsById(userId)
 }
