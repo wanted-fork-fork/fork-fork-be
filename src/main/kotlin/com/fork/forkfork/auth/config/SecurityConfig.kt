@@ -62,6 +62,7 @@ class SecurityConfig(val jwtUtil: JwtUtil) {
                 "/swagger-ui/**",
                 "/v3/api-docs/**",
                 "/api/v1/info/save/*",
+                "/api/v1/image/upload",
             )
         private const val BEARER_TOKEN = "Bearer Token"
         private const val BEARER = "Bearer"
