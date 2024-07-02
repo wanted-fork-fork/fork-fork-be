@@ -22,6 +22,12 @@ class LinkService(
         return getMatchMakerId(link)
     }
 
+    fun isValidLink(linkId: String): Boolean {
+        val link = findLinkById(linkId)
+        validateLinkExpiration(link)
+        return authService.isExistUser(link.createdBy ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "CreatedBy not found in Link"))
+    }
+
     fun createLink(): CreateLinkResponse {
         val link = linkRepository.save(Link())
         return CreateLinkResponse(link.id ?: throw RuntimeException("Link not created"))
