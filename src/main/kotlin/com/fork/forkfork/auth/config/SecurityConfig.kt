@@ -63,6 +63,8 @@ class SecurityConfig(val jwtUtil: JwtUtil) {
                 "/v3/api-docs/**",
                 "/api/v1/info/save/*",
                 "/api/v1/image/upload",
+                "/v3/api-docs.yaml",
+                "/error",
             )
         private const val BEARER_TOKEN = "Bearer Token"
         private const val BEARER = "Bearer"
