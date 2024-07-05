@@ -5,7 +5,7 @@ import com.fork.forkfork.auth.domain.enums.TokenType
 import com.fork.forkfork.auth.domain.repository.TokenRepository
 import com.fork.forkfork.auth.dto.UserTokenDto
 import com.fork.forkfork.auth.util.JwtUtil
-import com.fork.forkfork.exception.handler.InvalidTokenException
+import com.fork.forkfork.exception.InvalidTokenException
 import org.springframework.stereotype.Service
 
 @Service
