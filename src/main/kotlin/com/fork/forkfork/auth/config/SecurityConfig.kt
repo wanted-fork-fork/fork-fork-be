@@ -19,7 +19,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 @Configuration
 @EnableWebSecurity
-class SecurityConfig(val jwtUtil: JwtUtil) {
+class SecurityConfig(val jwtUtil: JwtUtil, val authenticationEntryPoint: CustomAuthenticationEntryPoint) {
     @Bean
     fun api(): OpenAPI {
         val api: SecurityScheme =
@@ -39,6 +39,7 @@ class SecurityConfig(val jwtUtil: JwtUtil) {
         http.formLogin { it.disable() }
         http.httpBasic { it.disable() }
         http.addFilterBefore(JwtAuthFilter(jwtUtil), UsernamePasswordAuthenticationFilter::class.java)
+        http.exceptionHandling { it.authenticationEntryPoint(authenticationEntryPoint) }
         http.authorizeHttpRequests { it.requestMatchers(*WHITE_LIST).permitAll().anyRequest().authenticated() }
         return http.build()
     }
@@ -63,6 +64,8 @@ class SecurityConfig(val jwtUtil: JwtUtil) {
                 "/v3/api-docs/**",
                 "/api/v1/info/save/*",
                 "/api/v1/image/upload",
+                "/v3/api-docs.yaml",
+                "/error",
             )
         private const val BEARER_TOKEN = "Bearer Token"
         private const val BEARER = "Bearer"
