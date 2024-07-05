@@ -19,7 +19,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 @Configuration
 @EnableWebSecurity
-class SecurityConfig(val jwtUtil: JwtUtil) {
+class SecurityConfig(val jwtUtil: JwtUtil, val authenticationEntryPoint: CustomAuthenticationEntryPoint) {
     @Bean
     fun api(): OpenAPI {
         val api: SecurityScheme =
@@ -39,6 +39,7 @@ class SecurityConfig(val jwtUtil: JwtUtil) {
         http.formLogin { it.disable() }
         http.httpBasic { it.disable() }
         http.addFilterBefore(JwtAuthFilter(jwtUtil), UsernamePasswordAuthenticationFilter::class.java)
+        http.exceptionHandling { it.authenticationEntryPoint(authenticationEntryPoint) }
         http.authorizeHttpRequests { it.requestMatchers(*WHITE_LIST).permitAll().anyRequest().authenticated() }
         return http.build()
     }
