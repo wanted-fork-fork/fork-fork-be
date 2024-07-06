@@ -1,9 +1,11 @@
-package com.fork.forkfork.auth.config
+package com.fork.forkfork.config
 
+import com.fork.forkfork.auth.config.CustomAuthenticationEntryPoint
 import com.fork.forkfork.auth.filter.JwtAuthFilter
 import com.fork.forkfork.auth.util.JwtUtil
 import io.swagger.v3.oas.models.Components
 import io.swagger.v3.oas.models.OpenAPI
+import io.swagger.v3.oas.models.info.Info
 import io.swagger.v3.oas.models.security.SecurityRequirement
 import io.swagger.v3.oas.models.security.SecurityScheme
 import org.springframework.context.annotation.Bean
@@ -28,7 +30,14 @@ class SecurityConfig(val jwtUtil: JwtUtil, val authenticationEntryPoint: CustomA
             ).`in`(SecurityScheme.In.HEADER).scheme(BEARER).bearerFormat(JWT)
         val securityRequirement = SecurityRequirement().addList(BEARER_TOKEN)
 
-        return OpenAPI().components(Components().addSecuritySchemes(BEARER_TOKEN, api)).addSecurityItem(securityRequirement)
+        return OpenAPI().components(Components().addSecuritySchemes(BEARER_TOKEN, api)).addSecurityItem(securityRequirement).info(apiInfo())
+    }
+
+    private fun apiInfo(): Info {
+        return Info()
+            .title("GOOGOO API")
+            .description("GOOGOO API Documentation")
+            .version("0.0.1")
     }
 
     @Bean
