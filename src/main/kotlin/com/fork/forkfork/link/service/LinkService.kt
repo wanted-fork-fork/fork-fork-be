@@ -22,10 +22,7 @@ class LinkService(
     }
 
     fun getLinkKeyByMatchMakerId(matchMakerId: String): LinkStatusResponse {
-        val link =
-            linkRepository.findByMatchMakerId(matchMakerId).orElseThrow {
-                notFoundException("Link not found, matchMakerId : $matchMakerId")
-            }
+        val link = findLinkByMatchMakerId(matchMakerId)
         return LinkStatusResponse(link.key, link.isOpen)
     }
 
@@ -35,8 +32,20 @@ class LinkService(
     }
 
     fun createLink(): CreateLinkResponse {
+        linkRepository.findByMatchMakerId(getUserIdFromSecurityContext()).ifPresent {
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Link already exists")
+        }
         val link = linkRepository.save(Link(getNewKey(), getUserIdFromSecurityContext(), true))
-        return CreateLinkResponse(link.id ?: throw RuntimeException("Link not created"))
+        return CreateLinkResponse(link.id ?: throw IllegalStateException("Link not created"), link.key, link.isOpen)
+    }
+
+    fun regenerateLinkKeyByMatchMakerId(matchMakerId: String): CreateLinkResponse {
+        val link =
+            findLinkByMatchMakerId(matchMakerId).apply {
+                key = getNewKey()
+            }
+        val newLink = linkRepository.save(link)
+        return CreateLinkResponse(newLink.id ?: throw IllegalStateException("Failed to create a new Link"), newLink.key, newLink.isOpen)
     }
 
     private fun findLinkByKey(linkKey: String): Link =
@@ -51,6 +60,11 @@ class LinkService(
         } while (linkRepository.existsByKey(key))
         return key
     }
+
+    private fun findLinkByMatchMakerId(matchMakerId: String): Link =
+        linkRepository.findByMatchMakerId(matchMakerId).orElseThrow {
+            notFoundException("Link not found, matchMakerId : $matchMakerId")
+        }
 
     private fun notFoundException(message: String): ResponseStatusException = throw ResponseStatusException(HttpStatus.NOT_FOUND, message)
 }
