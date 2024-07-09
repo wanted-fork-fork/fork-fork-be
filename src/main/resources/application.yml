@@ -8,6 +8,3 @@ spring:
       enabled: true
       max-file-size: 20MB
       max-request-size: 100MB
-
-link:
-  expiration-hours: 24

@@ -29,12 +29,12 @@ class InfoController(val infoService: InfoService) {
                 },
             )
 
-    @PostMapping("/save/{linkId}")
+    @PostMapping("/save/{linkKey}")
     fun saveInfo(
-        @PathVariable linkId: String,
+        @PathVariable linkKey: String,
         @RequestBody saveInfoRequest: SaveInfoRequest,
     ): ResponseEntity<String> =
-        ResponseEntity.ok().body(infoService.saveInfo(linkId, saveInfoRequest.userInfo, saveInfoRequest.idealPartner))
+        ResponseEntity.ok().body(infoService.saveInfo(linkKey, saveInfoRequest.userInfo, saveInfoRequest.idealPartner))
 
     @GetMapping("/{id}")
     fun getInfo(

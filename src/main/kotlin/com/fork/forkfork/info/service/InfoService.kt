@@ -14,11 +14,11 @@ class InfoService(val infoRepository: InfoRepository, val infoMapper: InfoMapper
     fun getInfoById(id: String) = infoRepository.findById(id).get()
 
     fun saveInfo(
-        linkId: String,
+        linkKey: String,
         userInfo: UserInfoRequest,
         idealPartner: IdealPartnerRequest,
     ) = Info(
-        matchMakerId = linkService.getMatchMakerIdByLinkId(linkId),
+        matchMakerId = linkService.getMatchMakerIdByLinkKey(linkKey),
         authorId = getUserIdFromSecurityContext(),
         userInfo = infoMapper.toUserInfoFromUserInfoRequest(userInfo),
         idealPartner = infoMapper.toIdealPartnerFromIdealPartnerRequest(idealPartner),
