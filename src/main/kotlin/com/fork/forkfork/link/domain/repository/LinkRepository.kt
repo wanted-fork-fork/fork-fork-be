@@ -10,4 +10,6 @@ interface LinkRepository : MongoRepository<Link, String> {
     fun existsByKey(key: String): Boolean
 
     fun findByMatchMakerId(matchMakerId: String): Optional<Link>
+
+    fun findByKey(linkKey: String): Optional<Link>
 }

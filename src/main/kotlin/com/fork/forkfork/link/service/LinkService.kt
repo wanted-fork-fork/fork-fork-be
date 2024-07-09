@@ -5,34 +5,33 @@ import com.fork.forkfork.auth.util.AuthUtil.getUserIdFromSecurityContext
 import com.fork.forkfork.link.domain.entity.Link
 import com.fork.forkfork.link.domain.repository.LinkRepository
 import com.fork.forkfork.link.dto.response.CreateLinkResponse
-import com.fork.forkfork.link.properties.LinkProperties
+import com.fork.forkfork.link.dto.response.LinkStatusResponse
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
-import java.time.OffsetDateTime
 import java.util.UUID
 
 @Service
 class LinkService(
     private val linkRepository: LinkRepository,
     private val authService: AuthService,
-    private val linkProperties: LinkProperties,
 ) {
-    fun getMatchMakerIdByLinkId(linkId: String): String {
-        val link = findLinkById(linkId)
-        validateLinkExpiration(link)
-        return getMatchMakerId(link)
+    fun getMatchMakerIdByLinkKey(linkKey: String): String {
+        val link = findLinkByKey(linkKey)
+        return link.matchMakerId
     }
 
-    fun getLinkKeyByMatchMakerId(matchMakerId: String): String =
-        linkRepository.findByMatchMakerId(matchMakerId).orElseThrow {
-            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Link not found, matchMakerId : $matchMakerId")
-        }.key
+    fun getLinkKeyByMatchMakerId(matchMakerId: String): LinkStatusResponse {
+        val link =
+            linkRepository.findByMatchMakerId(matchMakerId).orElseThrow {
+                notFoundException("Link not found, matchMakerId : $matchMakerId")
+            }
+        return LinkStatusResponse(link.key, link.isOpen)
+    }
 
-    fun isValidLink(linkId: String): Boolean {
-        val link = findLinkById(linkId)
-        validateLinkExpiration(link)
-        return authService.isExistUser(link.createdBy ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "CreatedBy not found in Link"))
+    fun isValidLink(linkKey: String): Boolean {
+        val link = findLinkByKey(linkKey)
+        return authService.isExistUser(link.matchMakerId) && link.isOpen
     }
 
     fun createLink(): CreateLinkResponse {
@@ -40,29 +39,18 @@ class LinkService(
         return CreateLinkResponse(link.id ?: throw RuntimeException("Link not created"))
     }
 
+    private fun findLinkByKey(linkKey: String): Link =
+        linkRepository.findByKey(linkKey).orElseThrow {
+            notFoundException("Link not found, linkKey : $linkKey")
+        }
+
     private fun getNewKey(): String {
-        val key = UUID.randomUUID().toString().replace("-", "")
-        return if (linkRepository.existsByKey(key)) {
-            getNewKey()
-        } else {
-            key
-        }
+        var key: String
+        do {
+            key = UUID.randomUUID().toString().replace("-", "")
+        } while (linkRepository.existsByKey(key))
+        return key
     }
 
-    private fun findLinkById(linkId: String): Link =
-        linkRepository.findById(linkId).orElseThrow { throw ResponseStatusException(HttpStatus.NOT_FOUND, "Link not found") }
-
-    private fun validateLinkExpiration(link: Link) {
-        if (OffsetDateTime.now().minusHours(linkProperties.expirationHours).isAfter(link.createdDate)) {
-            throw ResponseStatusException(HttpStatus.GONE, "Link expired")
-        }
-    }
-
-    private fun getMatchMakerId(link: Link): String {
-        val matchMakerId = link.createdBy ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "CreatedBy not found in Link")
-        if (!authService.isExistUser(matchMakerId)) {
-            throw ResponseStatusException(HttpStatus.NOT_FOUND, "MatchMakerId not user")
-        }
-        return matchMakerId
-    }
+    private fun notFoundException(message: String): ResponseStatusException = throw ResponseStatusException(HttpStatus.NOT_FOUND, message)
 }

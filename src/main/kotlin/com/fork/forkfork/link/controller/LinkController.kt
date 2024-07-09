@@ -16,11 +16,11 @@ class LinkController(val linkService: LinkService) {
     @PostMapping
     fun createLink() = ResponseEntity.ok().body(linkService.createLink())
 
-    @GetMapping
-    fun getLinkKeyByMatchMakerId() = ResponseEntity.ok().body(linkService.getLinkKeyByMatchMakerId(getUserIdFromSecurityContext()))
+    @GetMapping("/status")
+    fun getLinkByMatchMakerId() = ResponseEntity.ok().body(linkService.getLinkKeyByMatchMakerId(getUserIdFromSecurityContext()))
 
-    @GetMapping("/valid/{linkId}")
+    @GetMapping("/valid/{linkKey}")
     fun validateLink(
-        @PathVariable linkId: String,
-    ) = ResponseEntity.ok().body(ValidateLinkResponse(linkService.isValidLink(linkId), linkId))
+        @PathVariable linkKey: String,
+    ) = ResponseEntity.ok().body(ValidateLinkResponse(linkService.isValidLink(linkKey), linkKey))
 }
