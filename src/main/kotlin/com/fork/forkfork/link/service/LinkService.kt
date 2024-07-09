@@ -24,6 +24,11 @@ class LinkService(
         return getMatchMakerId(link)
     }
 
+    fun getLinkKeyByMatchMakerId(matchMakerId: String): String =
+        linkRepository.findByMatchMakerId(matchMakerId).orElseThrow {
+            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Link not found, matchMakerId : $matchMakerId")
+        }.key
+
     fun isValidLink(linkId: String): Boolean {
         val link = findLinkById(linkId)
         validateLinkExpiration(link)

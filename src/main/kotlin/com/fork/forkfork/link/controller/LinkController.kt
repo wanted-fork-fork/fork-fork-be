@@ -1,5 +1,6 @@
 package com.fork.forkfork.link.controller
 
+import com.fork.forkfork.auth.util.AuthUtil.getUserIdFromSecurityContext
 import com.fork.forkfork.link.dto.response.ValidateLinkResponse
 import com.fork.forkfork.link.service.LinkService
 import org.springframework.http.ResponseEntity
@@ -14,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController
 class LinkController(val linkService: LinkService) {
     @PostMapping
     fun createLink() = ResponseEntity.ok().body(linkService.createLink())
+
+    @GetMapping
+    fun getLinkKeyByMatchMakerId() = ResponseEntity.ok().body(linkService.getLinkKeyByMatchMakerId(getUserIdFromSecurityContext()))
 
     @GetMapping("/valid/{linkId}")
     fun validateLink(
