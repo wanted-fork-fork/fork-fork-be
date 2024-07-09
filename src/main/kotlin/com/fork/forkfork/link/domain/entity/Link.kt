@@ -13,5 +13,7 @@ class Link(
     val matchMakerId: String,
     var isOpen: Boolean,
     @Id
-    var id: String? = null,
-) : BaseAuditor()
+    private var id: String? = null,
+) : BaseAuditor() {
+    fun getId(): String = id ?: throw IllegalStateException("Link id is null")
+}
