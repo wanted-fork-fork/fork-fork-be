@@ -1,6 +1,7 @@
 package com.fork.forkfork.link.service
 
 import com.fork.forkfork.auth.service.AuthService
+import com.fork.forkfork.auth.util.AuthUtil.getUserIdFromSecurityContext
 import com.fork.forkfork.link.domain.entity.Link
 import com.fork.forkfork.link.domain.repository.LinkRepository
 import com.fork.forkfork.link.dto.response.CreateLinkResponse
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
 import java.time.OffsetDateTime
+import java.util.UUID
 
 @Service
 class LinkService(
@@ -29,8 +31,17 @@ class LinkService(
     }
 
     fun createLink(): CreateLinkResponse {
-        val link = linkRepository.save(Link())
+        val link = linkRepository.save(Link(getNewKey(), getUserIdFromSecurityContext(), true))
         return CreateLinkResponse(link.id ?: throw RuntimeException("Link not created"))
+    }
+
+    private fun getNewKey(): String {
+        val key = UUID.randomUUID().toString().replace("-", "")
+        return if (linkRepository.existsByKey(key)) {
+            getNewKey()
+        } else {
+            key
+        }
     }
 
     private fun findLinkById(linkId: String): Link =
