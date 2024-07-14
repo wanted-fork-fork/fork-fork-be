@@ -1,4 +1,4 @@
-package com.fork.forkfork.auth.filter
+package com.fork.forkfork.config.filter
 
 import com.fork.forkfork.auth.util.JwtUtil
 import jakarta.servlet.FilterChain
