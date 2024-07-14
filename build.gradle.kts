@@ -83,7 +83,7 @@ kover {
     reports {
         filters {
             excludes {
-                classes("**.*Config*", "**.*Application*")
+                classes("**.*Config*", "**.*Application*", "**.*enum*")
             }
         }
     }
