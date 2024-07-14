@@ -28,6 +28,7 @@ val jwtVersion = "0.11.5"
 val kotlinLoggingVersion = "5.1.0"
 val awsS3Version = "1.12.729"
 val mapStructVersion = "1.5.5.Final"
+val springMockkVersion = "4.0.2"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
@@ -55,7 +56,9 @@ dependencies {
     kaptTest("org.mapstruct:mapstruct-processor:$mapStructVersion")
 
     testImplementation("io.mockk:mockk:$mockkVersion")
+    testImplementation("com.ninja-squad:springmockk:$springMockkVersion")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.security:spring-security-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
