@@ -7,6 +7,7 @@ plugins {
     kotlin("plugin.spring") version "1.9.23"
     id("org.jlleitschuh.gradle.ktlint") version "12.1.1"
     kotlin("kapt") version "1.9.23"
+    id("org.jetbrains.kotlinx.kover") version "0.8.2"
 }
 
 group = "com.fork"
@@ -73,4 +74,14 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+kover {
+    reports {
+        filters {
+            excludes {
+                classes("**.*Config*", "**.*Application*")
+            }
+        }
+    }
 }
