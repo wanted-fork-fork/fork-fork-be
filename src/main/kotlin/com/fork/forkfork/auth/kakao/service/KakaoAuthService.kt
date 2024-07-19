@@ -2,7 +2,6 @@ package com.fork.forkfork.auth.kakao.service
 
 import com.fork.forkfork.auth.domain.enums.OAuthCompany
 import com.fork.forkfork.auth.dto.LoginInfoDto
-import com.fork.forkfork.auth.kakao.dto.request.KakaoLogoutRequest
 import com.fork.forkfork.auth.kakao.feign.KaKaoApiFeignClient
 import com.fork.forkfork.auth.kakao.feign.KaKaoAuthFeignClient
 import com.fork.forkfork.auth.kakao.properties.KakaoAuthProperties
@@ -40,14 +39,6 @@ class KakaoAuthService(
             code = code,
             grantType = GRANT_TYPE,
         )
-
-    fun logout(
-        accessToken: String,
-        targetKakaoId: Long,
-    ) {
-        val headers = mapOf(AUTHORIZATION to "$AUTHORIZATION_TYPE $accessToken")
-        kaKaoApiFeignClient.logout(headers, KakaoLogoutRequest(targetKakaoId))
-    }
 
     companion object {
         private const val GRANT_TYPE = "authorization_code"
