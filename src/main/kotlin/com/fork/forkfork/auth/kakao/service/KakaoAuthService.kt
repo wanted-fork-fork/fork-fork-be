@@ -32,7 +32,7 @@ class KakaoAuthService(
         )
     }
 
-    fun getAccessToken(code: String) =
+    private fun getAccessToken(code: String) =
         kaKaoAuthFeignClient.getAccessToken(
             restApiKey = kakaoAuthProperties.restApiKey,
             redirectUrl = kakaoAuthProperties.redirectUri,
