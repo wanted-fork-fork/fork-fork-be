@@ -1,8 +1,8 @@
 package com.fork.forkfork.config
 
 import com.fork.forkfork.auth.config.CustomAuthenticationEntryPoint
-import com.fork.forkfork.auth.filter.JwtAuthFilter
 import com.fork.forkfork.auth.util.JwtUtil
+import com.fork.forkfork.config.filter.JwtAuthFilter
 import io.swagger.v3.oas.models.Components
 import io.swagger.v3.oas.models.OpenAPI
 import io.swagger.v3.oas.models.info.Info
