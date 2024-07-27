@@ -5,4 +5,6 @@ import org.springframework.data.mongodb.repository.MongoRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface InfoRepository : MongoRepository<Info, String>
+interface InfoRepository : MongoRepository<Info, String> {
+    fun findAllByMatchMakerId(userId: String): List<Info>
+}
