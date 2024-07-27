@@ -6,6 +6,7 @@ import com.fork.forkfork.info.dto.TownDto
 import com.fork.forkfork.info.dto.request.SaveInfoRequest
 import com.fork.forkfork.info.dto.response.ArchivedInfoResponse
 import com.fork.forkfork.info.dto.response.CityAndTownResponse
+import com.fork.forkfork.info.dto.response.DetailedInfoResponse
 import com.fork.forkfork.info.service.InfoService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -38,10 +39,10 @@ class InfoController(val infoService: InfoService) {
             infoService.saveInfo(linkKey, saveInfoRequest.userInfo, saveInfoRequest.idealPartner),
         )
 
-    @GetMapping("/{id}")
+    @GetMapping("/detail/{id}")
     fun getInfo(
         @PathVariable id: String,
-    ) = infoService.getInfoById(id) // TODO: 필요한 정보만 dto로 전달
+    ): ResponseEntity<DetailedInfoResponse> = ResponseEntity.ok().body(infoService.getDetailedInfoById(id))
 
     @GetMapping("/all")
     fun getAllInfo(): ResponseEntity<List<ArchivedInfoResponse>> = ResponseEntity.ok().body(infoService.getAllInfo())

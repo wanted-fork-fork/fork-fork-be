@@ -5,6 +5,8 @@ import com.fork.forkfork.info.domain.entity.UserInfo
 import com.fork.forkfork.info.dto.request.IdealPartnerRequest
 import com.fork.forkfork.info.dto.request.UserInfoRequest
 import com.fork.forkfork.info.dto.response.ArchivedInfoResponse
+import com.fork.forkfork.info.dto.response.DetailedInfoIdealPartner
+import com.fork.forkfork.info.dto.response.DetailedInfoUserInfo
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 import org.mapstruct.ReportingPolicy
@@ -17,4 +19,8 @@ interface InfoMapper {
 
     @Mapping(target = "id", ignore = true)
     fun toArchivedInfoResponseFromUserInfo(userInfo: UserInfo): ArchivedInfoResponse
+
+    fun toUserInfoRequestFromUserInfo(userInfo: UserInfo): DetailedInfoUserInfo
+
+    fun toIdealPartnerRequestFromIdealPartner(idealPartner: IdealPartner): DetailedInfoIdealPartner
 }
