@@ -9,4 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 class GlobalExceptionHandler {
     @ExceptionHandler(InvalidTokenException::class)
     fun handleInvalidTokenException(): ResponseEntity<String> = ResponseEntity.badRequest().body("Invalid token")
+
+    @ExceptionHandler(IllegalArgumentException::class)
+    fun handleIllegalArgumentException(e: IllegalArgumentException): ResponseEntity<String> = ResponseEntity.badRequest().body(e.message)
 }
