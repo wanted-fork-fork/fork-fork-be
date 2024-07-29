@@ -9,6 +9,7 @@ import com.fork.forkfork.info.dto.response.CityAndTownResponse
 import com.fork.forkfork.info.dto.response.DetailedInfoResponse
 import com.fork.forkfork.info.service.InfoService
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -46,4 +47,12 @@ class InfoController(val infoService: InfoService) {
 
     @GetMapping("/all")
     fun getAllInfo(): ResponseEntity<List<ArchivedInfoResponse>> = ResponseEntity.ok().body(infoService.getAllInfo())
+
+    @DeleteMapping("/delete/{id}")
+    fun deleteInfo(
+        @PathVariable id: String,
+    ): ResponseEntity<String> {
+        infoService.deleteInfo(id)
+        return ResponseEntity.ok().body("Info deleted")
+    }
 }
