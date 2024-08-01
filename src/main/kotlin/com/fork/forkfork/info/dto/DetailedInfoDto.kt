@@ -1,4 +1,4 @@
-package com.fork.forkfork.info.dto.response
+package com.fork.forkfork.info.dto
 
 import com.fork.forkfork.info.domain.entity.Book
 import com.fork.forkfork.info.domain.entity.Drinking
@@ -13,7 +13,7 @@ import com.fork.forkfork.info.domain.entity.Religion
 import com.fork.forkfork.info.domain.entity.Smoking
 import java.util.Date
 
-class DetailedInfoResponse(
+class DetailedInfoDto(
     val id: String,
     val userInfo: DetailedInfoUserInfo,
     val idealPartner: DetailedInfoIdealPartner,

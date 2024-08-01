@@ -8,8 +8,8 @@ import org.springframework.data.mongodb.core.mapping.Document
 class Info(
     val matchMakerId: String,
     val authorId: String,
-    val userInfo: UserInfo,
-    val idealPartner: IdealPartner,
+    var userInfo: UserInfo,
+    var idealPartner: IdealPartner,
     @Id
     var id: String? = null,
 ) : BaseAuditor()
