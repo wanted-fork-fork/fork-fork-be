@@ -9,6 +9,7 @@ import com.fork.forkfork.info.dto.DetailedInfoUserInfo
 import com.fork.forkfork.info.dto.request.IdealPartnerRequest
 import com.fork.forkfork.info.dto.request.UserInfoRequest
 import com.fork.forkfork.info.dto.response.ArchivedInfoResponse
+import com.fork.forkfork.info.dto.response.InfoToShareResponse
 import com.fork.forkfork.info.mapper.InfoMapper
 import com.fork.forkfork.link.service.LinkService
 import org.springframework.stereotype.Service
@@ -21,8 +22,8 @@ class InfoService(val infoRepository: InfoRepository, val infoMapper: InfoMapper
 
         return DetailedInfoDto(
             id = info.id ?: throw Exception("Info id is null"),
-            userInfo = infoMapper.toUserInfoRequestFromUserInfo(info.userInfo),
-            idealPartner = infoMapper.toIdealPartnerRequestFromIdealPartner(info.idealPartner),
+            userInfo = infoMapper.toDetailedInfoUserInfoFromUserInfo(info.userInfo),
+            idealPartner = infoMapper.toDetailedInfoIdealPartnerFromIdealPartner(info.idealPartner),
         )
     }
 
@@ -67,5 +68,17 @@ class InfoService(val infoRepository: InfoRepository, val infoMapper: InfoMapper
     private fun getInfoWithValidation(id: String): Info {
         val info = infoRepository.findById(id).orElseThrow { throw IllegalArgumentException("Info not found") }
         return info
+    }
+
+    fun getInfoToShareById(
+        infoId: String,
+        sharingId: String,
+    ): InfoToShareResponse {
+        val info = getInfoWithValidation(infoId)
+        return InfoToShareResponse(
+            sharingId,
+            userInfo = infoMapper.toInfoToShareUserInfoFromUserInfo(info.userInfo),
+            idealPartner = infoMapper.toInfoToShareIdealPartnerFromIdealPartner(info.idealPartner),
+        )
     }
 }
