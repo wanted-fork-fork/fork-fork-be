@@ -56,7 +56,7 @@ class SecurityConfig(val jwtUtil: JwtUtil, val authenticationEntryPoint: CustomA
     @Bean
     fun corsConfigurationSource(): CorsConfigurationSource {
         val configuration = CorsConfiguration()
-        configuration.allowedOrigins = listOf("http://localhost:3000", "https://bhsocdpuaz.us14.qoddiapp.com")
+        configuration.allowedOrigins = listOf("http://localhost:3000", "https://bhsocdpuaz.us14.qoddiapp.com", "https://www.meetgoogoo.com")
         configuration.allowedMethods = listOf("GET", "POST", "PUT", "DELETE", "OPTIONS")
         val source = UrlBasedCorsConfigurationSource()
         source.registerCorsConfiguration("/**", configuration)
