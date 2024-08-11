@@ -2,7 +2,7 @@ package com.fork.forkfork.auth.kakao.controller
 
 import com.fork.forkfork.auth.domain.enums.OAuthCompany
 import com.fork.forkfork.auth.dto.LoginInfoDto
-import com.fork.forkfork.auth.dto.UserTokenDto
+import com.fork.forkfork.auth.dto.response.AccessTokenResponse
 import com.fork.forkfork.auth.kakao.service.KakaoAuthService
 import com.fork.forkfork.auth.service.AuthService
 import com.ninjasquad.springmockk.MockkBean
@@ -28,7 +28,7 @@ class KakaoAuthControllerTest {
 
     @Test
     fun `loginKakao는 token을 반환한다`() {
-        val userTokenDto = UserTokenDto("accessToken", "refreshToken")
+        val userTokenDto = AccessTokenResponse("accessToken")
         val code = "code"
 
         val loginInfoDto = LoginInfoDto("name", "profileImage", 1L, OAuthCompany.KAKAO)
@@ -38,7 +38,7 @@ class KakaoAuthControllerTest {
         mockMvc.get("/api/v1/auth/kakao/login?code=$code")
             .andExpect {
                 status { isOk() }
-                content { json("""{"accessToken":"accessToken","refreshToken":"refreshToken"}""") }
+                content { json("""{"accessToken":"accessToken"}""") }
             }
     }
 }

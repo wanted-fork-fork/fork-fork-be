@@ -3,14 +3,15 @@ package com.fork.forkfork.auth.service
 import com.fork.forkfork.auth.domain.entity.User
 import com.fork.forkfork.auth.domain.repository.UserRepository
 import com.fork.forkfork.auth.dto.LoginInfoDto
-import com.fork.forkfork.auth.dto.UserTokenDto
+import com.fork.forkfork.auth.dto.response.AccessTokenResponse
 import org.springframework.stereotype.Service
 
 @Service
 class AuthService(val userRepository: UserRepository, val tokenService: TokenService) {
-    fun login(loginInfoDto: LoginInfoDto): UserTokenDto {
+    fun login(loginInfoDto: LoginInfoDto): AccessTokenResponse {
         val user = getUser(User(loginInfoDto.name, loginInfoDto.profileImage, loginInfoDto.oauthId, loginInfoDto.oauthCompany))
-        return user.id?.let { tokenService.createToken(it) } ?: throw Exception("Not found user id")
+        val token = user.id?.let { tokenService.createToken(it) } ?: throw Exception("Not found user id")
+        return AccessTokenResponse(token.accessToken)
     }
 
     fun logout(userId: String) {
