@@ -32,8 +32,8 @@ class JwtUtil(private val jwtProperties: JwtProperties) {
 
     private fun getTokenExpirationTime(tokenType: TokenType): Long =
         when (tokenType) {
-            TokenType.ACCESS -> jwtProperties.expirationTime
-            TokenType.REFRESH -> jwtProperties.expirationTime * 5
+            TokenType.ACCESS -> jwtProperties.accessExpirationTime
+            TokenType.REFRESH -> jwtProperties.refreshExpirationTime
         }
 
     fun getClaims(token: String): Claims {
@@ -43,6 +43,8 @@ class JwtUtil(private val jwtProperties: JwtProperties) {
             .parseClaimsJws(token)
             .body
     }
+
+    fun getRefreshCookieMaxAge(): Int = jwtProperties.refreshCookieTime
 
     fun validateToken(token: String): Boolean {
         try {
