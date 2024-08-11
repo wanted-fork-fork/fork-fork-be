@@ -30,10 +30,9 @@ class KakaoAuthControllerTest {
     fun `loginKakao는 token을 반환한다`() {
         val userTokenDto = AccessTokenResponse("accessToken")
         val code = "code"
-
         val loginInfoDto = LoginInfoDto("name", "profileImage", 1L, OAuthCompany.KAKAO)
         every { kakaoAuthService.getKakaoUserInfo(code) } returns loginInfoDto
-        every { authService.login(loginInfoDto) } returns userTokenDto
+        every { authService.login(loginInfoDto, any()) } returns userTokenDto
 
         mockMvc.get("/api/v1/auth/kakao/login?code=$code")
             .andExpect {

@@ -19,7 +19,7 @@ class KakaoAuthController(val kakaoAuthService: KakaoAuthService, val authServic
         response: HttpServletResponse,
     ): ResponseEntity<AccessTokenResponse> {
         val loginInfoDto = kakaoAuthService.getKakaoUserInfo(code)
-        val token = authService.login(loginInfoDto)
+        val token = authService.login(loginInfoDto, response)
         return ResponseEntity.ok().body(token)
     }
 }
