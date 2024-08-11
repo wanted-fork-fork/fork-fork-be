@@ -10,11 +10,10 @@ internal class RefreshTokenRequestTest {
         val accessToken = "accessToken"
         val refreshToken = "refreshToken"
 
-        val refreshTokenRequest = RefreshTokenRequest(accessToken, refreshToken)
+        val refreshTokenRequest = RefreshTokenRequest(accessToken)
 
         assertAll(
             { Assertions.assertThat(refreshTokenRequest.accessToken).isEqualTo(accessToken) },
-            { Assertions.assertThat(refreshTokenRequest.refreshToken).isEqualTo(refreshToken) },
         )
     }
 }

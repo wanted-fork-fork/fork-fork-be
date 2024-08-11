@@ -58,7 +58,7 @@ internal class JwtUtilTest {
         Assertions.assertThat(isValid).isFalse()
     }
 
-    private fun getJwtUtil(expirationTime: Long) = JwtUtil(JwtProperties(expirationTime, SECRET))
+    private fun getJwtUtil(expirationTime: Long) = JwtUtil(JwtProperties(expirationTime, EXPIRATION_TIME, EXPIRATION_TIME.toInt(), SECRET))
 
     companion object {
         private const val EXPIRATION_TIME = 1000 * 60L

@@ -13,6 +13,7 @@ import io.mockk.verify
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
+import org.springframework.mock.web.MockHttpServletResponse
 
 @ExtendWith(MockKExtension::class)
 internal class TokenServiceTest {
@@ -59,11 +60,12 @@ internal class TokenServiceTest {
         // given
         val accessToken = "accessToken"
         val refreshToken = "refreshToken"
+        val response = MockHttpServletResponse()
         every { jwtUtil.validateToken(refreshToken) } returns false
 
         // when then
         assertThrows<InvalidTokenException> {
-            tokenService.refreshToken(accessToken, refreshToken)
+            tokenService.refreshToken(accessToken, refreshToken, response)
         }
     }
 
@@ -72,12 +74,13 @@ internal class TokenServiceTest {
         // given
         val accessToken = "accessToken"
         val refreshToken = "refreshToken"
+        val response = MockHttpServletResponse()
         every { jwtUtil.validateToken(refreshToken) } returns true
         every { tokenRepository.findByRefreshToken(refreshToken) } returns null
 
         // when then
         assertThrows<InvalidTokenException> {
-            tokenService.refreshToken(accessToken, refreshToken)
+            tokenService.refreshToken(accessToken, refreshToken, response)
         }
     }
 
@@ -86,12 +89,13 @@ internal class TokenServiceTest {
         // given
         val accessToken = "accessToken"
         val refreshToken = "refreshToken"
+        val response = MockHttpServletResponse()
         every { jwtUtil.validateToken(refreshToken) } returns true
         every { tokenRepository.findByRefreshToken(refreshToken) } returns Token("1", accessToken, refreshToken + "1")
 
         // when then
         assertThrows<InvalidTokenException> {
-            tokenService.refreshToken(accessToken, refreshToken)
+            tokenService.refreshToken(accessToken, refreshToken, response)
         }
     }
 
@@ -100,12 +104,13 @@ internal class TokenServiceTest {
         // given
         val accessToken = "accessToken"
         val refreshToken = "refreshToken"
+        val response = MockHttpServletResponse()
         every { jwtUtil.validateToken(refreshToken) } returns true
         every { tokenRepository.findByRefreshToken(refreshToken) } returns Token("1", accessToken + "1", refreshToken)
 
         // when then
         assertThrows<InvalidTokenException> {
-            tokenService.refreshToken(accessToken, refreshToken)
+            tokenService.refreshToken(accessToken, refreshToken, response)
         }
     }
 }

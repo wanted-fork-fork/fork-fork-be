@@ -1,5 +1,7 @@
 jwt:
-  expiration-time: 86400000 # 1 day
+  access-expiration-time: 86400000 # 1 day
+  refresh-expiration-time: 432000000 # 5 days
+  refresh-cookie-time: 432000 # 5 days
   secret: ${JWT_SECRET}
 
 s3:
