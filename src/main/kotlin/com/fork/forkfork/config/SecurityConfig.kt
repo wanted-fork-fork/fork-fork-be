@@ -59,6 +59,7 @@ class SecurityConfig(val jwtUtil: JwtUtil, val authenticationEntryPoint: CustomA
         configuration.allowedOrigins = listOf("http://localhost:3000", "https://bhsocdpuaz.us14.qoddiapp.com", "https://www.meetgoogoo.com")
         configuration.allowedMethods = listOf("GET", "POST", "PUT", "DELETE", "OPTIONS")
         configuration.allowCredentials = true
+        configuration.allowedHeaders = listOf("Authorization", "Content-Type")
         configuration.maxAge = 3600
         val source = UrlBasedCorsConfigurationSource()
         source.registerCorsConfiguration("/**", configuration)
