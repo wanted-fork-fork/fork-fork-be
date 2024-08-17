@@ -5,11 +5,15 @@ import com.fork.forkfork.auth.domain.repository.UserRepository
 import com.fork.forkfork.auth.dto.LoginInfoDto
 import com.fork.forkfork.auth.dto.UserTokenDto
 import org.springframework.stereotype.Service
+import java.time.OffsetDateTime
 
 @Service
 class AuthService(val userRepository: UserRepository, val tokenService: TokenService) {
     fun login(loginInfoDto: LoginInfoDto): UserTokenDto {
-        val user = getUser(User(loginInfoDto.name, loginInfoDto.profileImage, loginInfoDto.oauthId, loginInfoDto.oauthCompany))
+        val user =
+            getUser(
+                User(loginInfoDto.name, loginInfoDto.profileImage, loginInfoDto.oauthId, loginInfoDto.oauthCompany, OffsetDateTime.now()),
+            )
         return user.id?.let { tokenService.createToken(it) } ?: throw Exception("Not found user id")
     }
 

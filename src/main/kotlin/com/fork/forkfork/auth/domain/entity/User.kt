@@ -5,6 +5,7 @@ import com.fork.forkfork.domain.BaseAuditor
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.index.CompoundIndex
 import org.springframework.data.mongodb.core.mapping.Document
+import java.time.OffsetDateTime
 
 @Document("users")
 @CompoundIndex(name = "oauthId_oauthCompany", def = "{'oauthId': 1, 'oauthCompany': 1}", unique = true)
@@ -13,6 +14,7 @@ class User(
     val profileImage: String?,
     val oauthId: Long,
     val oauthCompany: OAuthCompany,
+    val privacyConsentDate: OffsetDateTime,
     @Id
     var id: String? = null,
 ) : BaseAuditor()
