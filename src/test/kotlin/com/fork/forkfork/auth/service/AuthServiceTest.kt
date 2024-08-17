@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.mock.web.MockHttpServletResponse
+import java.time.OffsetDateTime
 
 @ExtendWith(MockKExtension::class)
 internal class AuthServiceTest {
@@ -31,8 +32,8 @@ internal class AuthServiceTest {
     fun `사용자를 초기 생성할 때 save를 호출한다`() {
         // given
         every { userRepository.findByOauthIdAndOauthCompany(any(), any()) } returns null
-        every { userRepository.save(any()) } returns User("test", "test", 1, OAuthCompany.KAKAO)
-        val user = User("test", "test", 1, OAuthCompany.KAKAO)
+        every { userRepository.save(any()) } returns User("test", "test", 1, OAuthCompany.KAKAO, OffsetDateTime.now())
+        val user = LoginInfoDto("test", "test", 1, OAuthCompany.KAKAO)
 
         // when
         authService.getUser(user)
@@ -45,8 +46,10 @@ internal class AuthServiceTest {
     @Test
     fun `사용자가 이미 존재할 때 save를 호출하지 않는다`() {
         // given
-        every { userRepository.findByOauthIdAndOauthCompany(any(), any()) } returns User("test", "test", 1, OAuthCompany.KAKAO)
-        val user = User("test", "test", 1, OAuthCompany.KAKAO)
+        every {
+            userRepository.findByOauthIdAndOauthCompany(any(), any())
+        } returns User("test", "test", 1, OAuthCompany.KAKAO, OffsetDateTime.now())
+        val user = LoginInfoDto("test", "test", 1, OAuthCompany.KAKAO)
 
         // when
         authService.getUser(user)
@@ -74,7 +77,9 @@ internal class AuthServiceTest {
         // given
         val loginInfoDto = LoginInfoDto("test", "test", 1, OAuthCompany.KAKAO)
         val response = MockHttpServletResponse()
-        every { userRepository.findByOauthIdAndOauthCompany(any(), any()) } returns User("test", "test", 1, OAuthCompany.KAKAO, "1")
+        every {
+            userRepository.findByOauthIdAndOauthCompany(any(), any())
+        } returns User("test", "test", 1, OAuthCompany.KAKAO, OffsetDateTime.now(), "1")
         every { tokenService.createToken(any()) } returns UserTokenDto("accessToken", "refreshToken")
         every { tokenService.createCookie(any()) } returns Cookie("refreshToken", "refreshToken")
 
@@ -90,7 +95,9 @@ internal class AuthServiceTest {
         // given
         val loginInfoDto = LoginInfoDto("test", "test", 1, OAuthCompany.KAKAO)
         val response = MockHttpServletResponse()
-        every { userRepository.findByOauthIdAndOauthCompany(any(), any()) } returns User("test", "test", 1, OAuthCompany.KAKAO)
+        every {
+            userRepository.findByOauthIdAndOauthCompany(any(), any())
+        } returns User("test", "test", 1, OAuthCompany.KAKAO, OffsetDateTime.now())
 
         // when
         assertThrows<Exception> {
