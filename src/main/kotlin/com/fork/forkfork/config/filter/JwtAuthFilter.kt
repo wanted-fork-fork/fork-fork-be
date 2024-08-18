@@ -18,7 +18,7 @@ import java.time.Duration
 class JwtAuthFilter(private val jwtUtil: JwtUtil) : OncePerRequestFilter() {
     private fun createNewBucket(): LocalBucket =
         Bucket.builder()
-            .addLimit { limit -> limit.capacity(USER_BUCKET_SIZE).refillGreedy(5, Duration.ofSeconds(1)) }
+            .addLimit { limit -> limit.capacity(USER_BUCKET_SIZE).refillGreedy(REFILL_TOKENS, Duration.ofSeconds(1)) }
             .build()
 
     override fun doFilterInternal(
@@ -79,6 +79,7 @@ class JwtAuthFilter(private val jwtUtil: JwtUtil) : OncePerRequestFilter() {
     companion object {
         private const val BEARER_TOKEN_PREFIX = "Bearer "
         private const val USER_BUCKET_SIZE = 30L
+        private const val REFILL_TOKENS = 5L
         private const val BUCKET_ATTRIBUTE_NAME = "bucket"
         private const val TOO_MANY_REQUESTS = "Too many requests"
     }
