@@ -46,6 +46,7 @@ class JwtAuthFilter(private val jwtUtil: JwtUtil) : OncePerRequestFilter() {
             return
         }
 
+        // TODO 로깅 추가, 어떤 사용자가 요청을 많이 보내서 오류 받는지
         response.contentType = MediaType.TEXT_PLAIN_VALUE
         response.status = HttpStatus.TOO_MANY_REQUESTS.value()
         response.writer.write(TOO_MANY_REQUESTS)
