@@ -1,6 +1,7 @@
 package com.fork.forkfork.info.dto.response
 
 import com.fork.forkfork.info.domain.entity.Gender
+import com.fork.forkfork.info.domain.entity.InfoImage
 import com.fork.forkfork.info.domain.entity.Job
 import com.fork.forkfork.info.domain.entity.Location
 import com.fork.forkfork.info.domain.entity.MBTI
@@ -21,4 +22,5 @@ class ArchivedInfoResponse(
     val drinking: String,
     val smoking: Smoking,
     val hobbies: List<String>,
+    val images: List<InfoImage>,
 )
