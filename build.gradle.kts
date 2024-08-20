@@ -29,6 +29,7 @@ val kotlinLoggingVersion = "5.1.0"
 val awsS3Version = "1.12.729"
 val mapStructVersion = "1.5.5.Final"
 val springMockkVersion = "4.0.2"
+val bucket4jVersion = "8.10.1"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
@@ -54,6 +55,9 @@ dependencies {
     implementation("org.mapstruct:mapstruct:$mapStructVersion")
     kapt("org.mapstruct:mapstruct-processor:$mapStructVersion")
     kaptTest("org.mapstruct:mapstruct-processor:$mapStructVersion")
+
+    // rate limiter
+    implementation("com.bucket4j:bucket4j-core:$bucket4jVersion")
 
     testImplementation("io.mockk:mockk:$mockkVersion")
     testImplementation("com.ninja-squad:springmockk:$springMockkVersion")
