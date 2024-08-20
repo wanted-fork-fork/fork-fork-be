@@ -2,6 +2,7 @@ package com.fork.forkfork.auth.controller
 
 import com.fork.forkfork.auth.dto.request.RefreshTokenRequest
 import com.fork.forkfork.auth.dto.response.AccessTokenResponse
+import com.fork.forkfork.auth.dto.response.UserInfoResponse
 import com.fork.forkfork.auth.service.AuthService
 import com.fork.forkfork.auth.service.TokenService
 import com.fork.forkfork.auth.util.AuthUtil
@@ -24,8 +25,8 @@ class AuthController(val authService: AuthService, val tokenService: TokenServic
     }
 
     @GetMapping("/info")
-    fun info(): ResponseEntity<String> {
-        return ResponseEntity.ok().body("Hello, userId : ${AuthUtil.getUserIdFromSecurityContext()}")
+    fun info(): ResponseEntity<UserInfoResponse> {
+        return ResponseEntity.ok().body(authService.getUserInfo())
     }
 
     @PostMapping("/refresh-token")

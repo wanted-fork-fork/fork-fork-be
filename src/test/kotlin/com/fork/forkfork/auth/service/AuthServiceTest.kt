@@ -36,7 +36,7 @@ internal class AuthServiceTest {
         val user = LoginInfoDto("test", "test", 1, OAuthCompany.KAKAO)
 
         // when
-        authService.getUser(user)
+        authService.getOrSaveUser(user)
 
         // then
         verify(exactly = 1) { userRepository.findByOauthIdAndOauthCompany(any(), any()) }
@@ -52,7 +52,7 @@ internal class AuthServiceTest {
         val user = LoginInfoDto("test", "test", 1, OAuthCompany.KAKAO)
 
         // when
-        authService.getUser(user)
+        authService.getOrSaveUser(user)
 
         // then
         verify(exactly = 1) { userRepository.findByOauthIdAndOauthCompany(any(), any()) }

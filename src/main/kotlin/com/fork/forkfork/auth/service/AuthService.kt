@@ -4,6 +4,8 @@ import com.fork.forkfork.auth.domain.entity.User
 import com.fork.forkfork.auth.domain.repository.UserRepository
 import com.fork.forkfork.auth.dto.LoginInfoDto
 import com.fork.forkfork.auth.dto.response.AccessTokenResponse
+import com.fork.forkfork.auth.dto.response.UserInfoResponse
+import com.fork.forkfork.auth.util.AuthUtil.getUserIdFromSecurityContext
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime
@@ -14,8 +16,8 @@ class AuthService(val userRepository: UserRepository, val tokenService: TokenSer
         loginInfoDto: LoginInfoDto,
         response: HttpServletResponse,
     ): AccessTokenResponse {
-        val user = getUser(loginInfoDto)
-        val token = user.id?.let { tokenService.createToken(it) } ?: throw Exception("Not found user id")
+        val user = getOrSaveUser(loginInfoDto)
+        val token = user.id?.let { tokenService.createToken(it) } ?: throw IllegalArgumentException("Not found user id")
         response.addCookie(tokenService.createCookie(token.refreshToken))
         return AccessTokenResponse(token.accessToken)
     }
@@ -24,7 +26,7 @@ class AuthService(val userRepository: UserRepository, val tokenService: TokenSer
         tokenService.expireToken(userId)
     }
 
-    fun getUser(loginInfoDto: LoginInfoDto): User {
+    fun getOrSaveUser(loginInfoDto: LoginInfoDto): User {
         userRepository.findByOauthIdAndOauthCompany(loginInfoDto.oauthId, loginInfoDto.oauthCompany)?.let { return it }
         return saveUser(loginInfoDto)
     }
@@ -35,4 +37,10 @@ class AuthService(val userRepository: UserRepository, val tokenService: TokenSer
         )
 
     fun isExistUser(userId: String): Boolean = userRepository.existsById(userId)
+
+    fun getUserInfo(): UserInfoResponse {
+        val userId = getUserIdFromSecurityContext()
+        val user = userRepository.findById(userId).orElseThrow { IllegalArgumentException("Not found user. userId: $userId") }
+        return UserInfoResponse(userId, user.name, user.profileImage)
+    }
 }
