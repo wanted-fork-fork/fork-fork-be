@@ -30,7 +30,7 @@ class InfoService(val infoRepository: InfoRepository, val infoMapper: InfoMapper
     fun saveInfo(
         linkKey: String,
         userInfo: UserInfoRequest,
-        idealPartner: IdealPartnerRequest,
+        idealPartner: IdealPartnerRequest?,
     ) = Info(
         matchMakerId = linkService.getMatchMakerIdByLinkKey(linkKey),
         authorId = getUserIdFromSecurityContext(),
@@ -54,7 +54,7 @@ class InfoService(val infoRepository: InfoRepository, val infoMapper: InfoMapper
     fun updateInfo(
         id: String,
         detailedInfoUserInfo: DetailedInfoUserInfo,
-        detailedInfoIdealPartner: DetailedInfoIdealPartner,
+        detailedInfoIdealPartner: DetailedInfoIdealPartner?,
     ) {
         val info = getInfoWithValidation(id)
         require(info.matchMakerId == getUserIdFromSecurityContext()) { "You are not authorized to update this info" }

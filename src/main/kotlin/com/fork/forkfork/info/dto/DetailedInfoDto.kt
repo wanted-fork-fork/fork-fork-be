@@ -16,7 +16,7 @@ import java.util.Date
 class DetailedInfoDto(
     val id: String,
     val userInfo: DetailedInfoUserInfo,
-    val idealPartner: DetailedInfoIdealPartner,
+    val idealPartner: DetailedInfoIdealPartner?,
 )
 
 class DetailedInfoUserInfo(
@@ -37,6 +37,7 @@ class DetailedInfoUserInfo(
     val dateStyle: List<String>?,
     val book: Book?,
     val movie: Movie?,
+    val introduction: String,
 )
 
 class DetailedInfoIdealPartner(
@@ -45,10 +46,10 @@ class DetailedInfoIdealPartner(
     val style: String?,
     val images: List<InfoImage>?,
     val location: Location?,
-    val hobbies: List<String>?,
-    val religion: Religion?,
-    val drinking: Drinking?,
-    val smoking: Smoking?,
-    val requiredOptions: List<String>?,
-    val toMatchMaker: String?,
+    val hobbies: List<String>,
+    val religion: Religion,
+    val drinking: Drinking,
+    val smoking: Smoking,
+    val requiredOptions: List<String>,
+    val toMatchMaker: String,
 )

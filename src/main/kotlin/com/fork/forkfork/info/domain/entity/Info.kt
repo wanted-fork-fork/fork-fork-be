@@ -9,7 +9,7 @@ class Info(
     val matchMakerId: String,
     val authorId: String,
     var userInfo: UserInfo,
-    var idealPartner: IdealPartner,
+    var idealPartner: IdealPartner?,
     @Id
     var id: String? = null,
 ) : BaseAuditor()

@@ -17,14 +17,14 @@ import org.mapstruct.ReportingPolicy
 interface InfoMapper {
     fun toUserInfoFromUserInfoRequest(userInfoRequest: UserInfoRequest): UserInfo
 
-    fun toIdealPartnerFromIdealPartnerRequest(idealPartnerRequest: IdealPartnerRequest): IdealPartner
+    fun toIdealPartnerFromIdealPartnerRequest(idealPartnerRequest: IdealPartnerRequest?): IdealPartner?
 
     @Mapping(target = "id", ignore = true)
     fun toArchivedInfoResponseFromUserInfo(userInfo: UserInfo): ArchivedInfoResponse
 
     fun toDetailedInfoUserInfoFromUserInfo(userInfo: UserInfo): DetailedInfoUserInfo
 
-    fun toDetailedInfoIdealPartnerFromIdealPartner(idealPartner: IdealPartner): DetailedInfoIdealPartner
+    fun toDetailedInfoIdealPartnerFromIdealPartner(idealPartner: IdealPartner?): DetailedInfoIdealPartner?
 
     @Mapping(target = "introduction", source = "introduction")
     fun toUserInfoFromDetailedInfoUserInfoAndIntroduction(
@@ -32,9 +32,9 @@ interface InfoMapper {
         introduction: String?,
     ): UserInfo
 
-    fun toIdealPartnerFromDetailedInfoIdealPartner(idealPartner: DetailedInfoIdealPartner): IdealPartner
+    fun toIdealPartnerFromDetailedInfoIdealPartner(idealPartner: DetailedInfoIdealPartner?): IdealPartner?
 
     fun toInfoToShareUserInfoFromUserInfo(userInfo: UserInfo): InfoToShareUserInfo
 
-    fun toInfoToShareIdealPartnerFromIdealPartner(idealPartner: IdealPartner): InfoToShareIdealPartner
+    fun toInfoToShareIdealPartnerFromIdealPartner(idealPartner: IdealPartner?): InfoToShareIdealPartner?
 }

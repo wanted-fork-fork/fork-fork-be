@@ -16,7 +16,7 @@ import java.util.Date
 class InfoToShareResponse(
     val sharingId: String,
     val userInfo: InfoToShareUserInfo,
-    val idealPartner: InfoToShareIdealPartner,
+    val idealPartner: InfoToShareIdealPartner?,
 )
 
 class InfoToShareUserInfo(
@@ -46,10 +46,10 @@ class InfoToShareIdealPartner(
     val style: String?,
     val images: List<InfoImage>?,
     val location: Location?,
-    val hobbies: List<String>?,
-    val religion: Religion?,
-    val drinking: Drinking?,
-    val smoking: Smoking?,
-    val requiredOptions: List<String>?,
-    val toMatchMaker: String?,
+    val hobbies: List<String>,
+    val religion: Religion,
+    val drinking: Drinking,
+    val smoking: Smoking,
+    val requiredOptions: List<String>,
+    val toMatchMaker: String,
 )
