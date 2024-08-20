@@ -15,7 +15,7 @@ class ArchivedInfoResponse(
     val gender: Gender,
     val location: Location,
     val height: Int,
-    val mbti: MBTI,
+    val mbti: MBTI?,
     val religion: Religion,
     val job: Job,
     val drinking: String,

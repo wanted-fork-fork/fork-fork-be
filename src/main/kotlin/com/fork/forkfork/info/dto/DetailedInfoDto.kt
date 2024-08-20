@@ -25,7 +25,7 @@ class DetailedInfoUserInfo(
     val birthDate: Date,
     val height: Int,
     val images: List<InfoImage>,
-    val mbti: MBTI,
+    val mbti: MBTI?,
     val job: Job,
     val location: Location,
     val religion: Religion,
