@@ -32,12 +32,12 @@ class DetailedInfoUserInfo(
     val hobbies: List<String>,
     val drinking: String,
     val smoking: Smoking,
+    val introduction: String?,
     val pets: List<String>?,
     val foods: List<String>?,
     val dateStyle: List<String>?,
     val book: Book?,
     val movie: Movie?,
-    val introduction: String,
 )
 
 class DetailedInfoIdealPartner(
