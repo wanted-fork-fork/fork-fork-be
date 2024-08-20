@@ -9,5 +9,6 @@ enum class ReligionCategory {
     CHRISTIANITY,
     CATHOLICISM,
     BUDDHISM,
+    IRRELIGION,
     ETC,
 }
