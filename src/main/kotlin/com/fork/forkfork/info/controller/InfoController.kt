@@ -33,7 +33,7 @@ class InfoController(val infoService: InfoService) {
             },
         )
 
-    @PostMapping
+    @PostMapping("/save")
     fun saveInfo(
         @RequestParam linkKey: String,
         @RequestBody saveInfoRequest: SaveInfoRequest,

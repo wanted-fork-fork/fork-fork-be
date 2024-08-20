@@ -74,7 +74,7 @@ class SecurityConfig(val jwtUtil: JwtUtil, val authenticationEntryPoint: CustomA
                 "/",
                 "/swagger-ui/**",
                 "/v3/api-docs/**",
-                "/api/v1/info/save/*",
+                "/api/v1/info/save*",
                 "/api/v1/image/upload",
                 "/api/v1/link/valid/*",
                 "/v3/api-docs.yaml",
