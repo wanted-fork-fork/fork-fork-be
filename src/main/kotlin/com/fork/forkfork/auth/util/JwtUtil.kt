@@ -32,8 +32,8 @@ class JwtUtil(private val jwtProperties: JwtProperties) {
 
     private fun getTokenExpirationTime(tokenType: TokenType): Long =
         when (tokenType) {
-            TokenType.ACCESS -> jwtProperties.accessExpirationTime
-            TokenType.REFRESH -> jwtProperties.refreshExpirationTime
+            TokenType.ACCESS -> jwtProperties.accessExpirationTime * 60
+            TokenType.REFRESH -> jwtProperties.refreshExpirationTime * 60
         }
 
     fun getClaims(token: String): Claims {
