@@ -3,22 +3,18 @@ package com.fork.forkfork.auth.service
 import com.fork.forkfork.auth.domain.entity.User
 import com.fork.forkfork.auth.domain.repository.UserRepository
 import com.fork.forkfork.auth.dto.LoginInfoDto
-import com.fork.forkfork.auth.dto.response.AccessTokenResponse
+import com.fork.forkfork.auth.dto.UserTokenDto
 import com.fork.forkfork.auth.dto.response.UserInfoResponse
 import com.fork.forkfork.auth.util.AuthUtil.getUserIdFromSecurityContext
-import jakarta.servlet.http.HttpServletResponse
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime
 
 @Service
 class AuthService(val userRepository: UserRepository, val tokenService: TokenService) {
-    fun login(
-        loginInfoDto: LoginInfoDto,
-        response: HttpServletResponse,
-    ): AccessTokenResponse {
+    fun login(loginInfoDto: LoginInfoDto): UserTokenDto {
         val user = getOrSaveUser(loginInfoDto)
         val token = user.id?.let { tokenService.createToken(it) } ?: throw IllegalArgumentException("Not found user id")
-        return AccessTokenResponse(token.accessToken)
+        return UserTokenDto(token.accessToken, token.refreshToken)
     }
 
     fun logout(userId: String) {

@@ -13,7 +13,6 @@ import io.mockk.verify
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
-import org.springframework.mock.web.MockHttpServletResponse
 import java.time.OffsetDateTime
 
 @ExtendWith(MockKExtension::class)
@@ -75,14 +74,13 @@ internal class AuthServiceTest {
     fun `login시 user가 존재하면 tokenService의 createToken을 호출한다`() {
         // given
         val loginInfoDto = LoginInfoDto("test", "test", 1, OAuthCompany.KAKAO)
-        val response = MockHttpServletResponse()
         every {
             userRepository.findByOauthIdAndOauthCompany(any(), any())
         } returns User("test", "test", 1, OAuthCompany.KAKAO, OffsetDateTime.now(), "1")
         every { tokenService.createToken(any()) } returns UserTokenDto("accessToken", "refreshToken")
 
         // when
-        authService.login(loginInfoDto, response)
+        authService.login(loginInfoDto)
 
         // then
         verify(exactly = 1) { tokenService.createToken(any()) }
@@ -92,14 +90,13 @@ internal class AuthServiceTest {
     fun `login시 user의 id가 존재하지 않으면 오류가 발생한다`() {
         // given
         val loginInfoDto = LoginInfoDto("test", "test", 1, OAuthCompany.KAKAO)
-        val response = MockHttpServletResponse()
         every {
             userRepository.findByOauthIdAndOauthCompany(any(), any())
         } returns User("test", "test", 1, OAuthCompany.KAKAO, OffsetDateTime.now())
 
         // when
         assertThrows<Exception> {
-            authService.login(loginInfoDto, response)
+            authService.login(loginInfoDto)
         }
     }
 }
