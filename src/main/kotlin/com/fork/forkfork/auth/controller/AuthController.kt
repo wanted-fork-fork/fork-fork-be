@@ -1,14 +1,12 @@
 package com.fork.forkfork.auth.controller
 
-import com.fork.forkfork.auth.dto.request.RefreshTokenRequest
-import com.fork.forkfork.auth.dto.response.AccessTokenResponse
+import com.fork.forkfork.auth.dto.UserTokenDto
 import com.fork.forkfork.auth.dto.response.UserInfoResponse
 import com.fork.forkfork.auth.service.AuthService
 import com.fork.forkfork.auth.service.TokenService
 import com.fork.forkfork.auth.util.AuthUtil
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.CookieValue
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -31,10 +29,9 @@ class AuthController(val authService: AuthService, val tokenService: TokenServic
 
     @PostMapping("/refresh-token")
     fun refreshToken(
-        @RequestBody refreshTokenRequest: RefreshTokenRequest,
-        @CookieValue("refreshToken", required = true) refreshToken: String,
+        @RequestBody tokenDto: UserTokenDto,
         response: HttpServletResponse,
-    ): ResponseEntity<AccessTokenResponse> {
-        return ResponseEntity.ok().body(tokenService.refreshToken(refreshTokenRequest.accessToken, refreshToken, response))
+    ): ResponseEntity<UserTokenDto> {
+        return ResponseEntity.ok().body(tokenService.refreshToken(tokenDto.accessToken, tokenDto.refreshToken))
     }
 }
