@@ -18,7 +18,6 @@ class AuthService(val userRepository: UserRepository, val tokenService: TokenSer
     ): AccessTokenResponse {
         val user = getOrSaveUser(loginInfoDto)
         val token = user.id?.let { tokenService.createToken(it) } ?: throw IllegalArgumentException("Not found user id")
-        response.addCookie(tokenService.createCookie(token.refreshToken))
         return AccessTokenResponse(token.accessToken)
     }
 

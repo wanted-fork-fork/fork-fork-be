@@ -10,7 +10,6 @@ import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
 import io.mockk.verify
-import jakarta.servlet.http.Cookie
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
@@ -81,7 +80,6 @@ internal class AuthServiceTest {
             userRepository.findByOauthIdAndOauthCompany(any(), any())
         } returns User("test", "test", 1, OAuthCompany.KAKAO, OffsetDateTime.now(), "1")
         every { tokenService.createToken(any()) } returns UserTokenDto("accessToken", "refreshToken")
-        every { tokenService.createCookie(any()) } returns Cookie("refreshToken", "refreshToken")
 
         // when
         authService.login(loginInfoDto, response)
