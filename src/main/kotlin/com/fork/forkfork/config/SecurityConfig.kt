@@ -79,6 +79,8 @@ class SecurityConfig(val jwtUtil: JwtUtil, val authenticationEntryPoint: CustomA
                 "/api/v1/link/valid/*",
                 "/v3/api-docs.yaml",
                 "/error",
+                "/favicon.ico",
+                "/health",
             )
         private const val BEARER_TOKEN = "Bearer Token"
         private const val BEARER = "Bearer"
