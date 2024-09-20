@@ -11,3 +11,13 @@ spring:
 
 sharing:
   expiration-hours: 24
+
+---
+spring:
+  config:
+    activate:
+      on-profile: real
+
+logging:
+  level:
+    root: warn

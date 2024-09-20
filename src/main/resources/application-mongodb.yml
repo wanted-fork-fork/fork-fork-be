@@ -16,7 +16,7 @@ spring:
 spring:
   config:
     activate:
-      on-profile: beta
+      on-profile: ( beta | real )
   data:
     mongodb:
       uri: ${MONGO_URL}
