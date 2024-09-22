@@ -10,7 +10,6 @@
 	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>logs/app.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-			<!-- 파일명 패턴: 일자별로 파일 생성 및 크기 1GB 초과 시 새로운 파일 생성 -->
 			<fileNamePattern>logs/app.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
 			<maxHistory>7</maxHistory> <!-- 7일치 로그 보관 -->
 			<maxFileSize>1GB</maxFileSize> <!-- 파일 크기 1GB 초과 시 롤링 -->
@@ -22,9 +21,13 @@
 
 	<!-- 에러 로그 파일 (ERROR 레벨, 14일간 보관, 파일 크기 1GB 초과 시 롤링) -->
 	<appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>error</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
 		<file>logs/error.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-			<!-- 파일명 패턴: 일자별로 파일 생성 및 크기 1GB 초과 시 새로운 파일 생성 -->
 			<fileNamePattern>logs/error.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
 			<maxHistory>14</maxHistory> <!-- 14일치 에러 로그 보관 -->
 			<maxFileSize>1GB</maxFileSize> <!-- 파일 크기 1GB 초과 시 롤링 -->
@@ -34,14 +37,11 @@
 		</encoder>
 	</appender>
 
-	<!-- 루트 로거 (INFO 레벨 이상은 FILE에 기록) -->
+	<!-- 루트 로거 (INFO 레벨 로그만 기록) -->
 	<root level="info">
 		<appender-ref ref="STDOUT" />
 		<appender-ref ref="FILE" />
+		<appender-ref ref="ERROR_FILE" />
 	</root>
 
-	<!-- ERROR 레벨 이상의 로그를 ERROR_FILE에 기록 -->
-	<logger name="ERROR_LOGGER" level="error" additivity="false">
-		<appender-ref ref="ERROR_FILE" />
-	</logger>
 </configuration>
