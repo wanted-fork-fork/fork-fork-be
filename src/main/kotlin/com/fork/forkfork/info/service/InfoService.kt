@@ -13,6 +13,7 @@ import com.fork.forkfork.info.dto.response.InfoToShareResponse
 import com.fork.forkfork.info.mapper.InfoMapper
 import com.fork.forkfork.link.service.LinkService
 import org.springframework.stereotype.Service
+import java.time.OffsetDateTime
 
 @Service
 class InfoService(val infoRepository: InfoRepository, val infoMapper: InfoMapper, val linkService: LinkService) {
@@ -73,12 +74,14 @@ class InfoService(val infoRepository: InfoRepository, val infoMapper: InfoMapper
     fun getInfoToShareById(
         infoId: String,
         sharingId: String,
+        expiredDate: OffsetDateTime,
     ): InfoToShareResponse {
         val info = getInfoWithValidation(infoId)
         return InfoToShareResponse(
             sharingId,
             userInfo = infoMapper.toInfoToShareUserInfoFromUserInfo(info.userInfo),
             idealPartner = infoMapper.toInfoToShareIdealPartnerFromIdealPartner(info.idealPartner),
+            expiredDate = expiredDate,
         )
     }
 }

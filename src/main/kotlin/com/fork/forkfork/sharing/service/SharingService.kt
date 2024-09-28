@@ -1,5 +1,6 @@
 package com.fork.forkfork.sharing.service
 
+import com.fork.forkfork.exception.ExceptionUtils.notFoundException
 import com.fork.forkfork.info.dto.response.InfoToShareResponse
 import com.fork.forkfork.info.service.InfoService
 import com.fork.forkfork.sharing.domain.entity.Sharing
@@ -23,9 +24,9 @@ class SharingService(val sharingRepository: SharingRepository, val sharingProper
         val sharing =
             sharingRepository.findById(
                 sharingId,
-            ).orElseThrow { IllegalArgumentException("Not exist sharing. sharingId: $sharingId") }
+            ).orElseThrow { notFoundException("Not exist sharing. sharingId: $sharingId") }
         require(validateSharingExpiration(sharing)) { "Sharing is expired" }
-        return infoService.getInfoToShareById(sharing.infoId, sharingId)
+        return infoService.getInfoToShareById(sharing.infoId, sharingId, sharing.expiredDate)
     }
 
     private fun validateSharingExpiration(sharing: Sharing) = sharing.expiredDate.isAfter(OffsetDateTime.now())

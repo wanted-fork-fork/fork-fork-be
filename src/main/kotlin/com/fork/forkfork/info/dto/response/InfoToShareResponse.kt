@@ -11,12 +11,14 @@ import com.fork.forkfork.info.domain.entity.Movie
 import com.fork.forkfork.info.domain.entity.NumberRange
 import com.fork.forkfork.info.domain.entity.Religion
 import com.fork.forkfork.info.domain.entity.Smoking
+import java.time.OffsetDateTime
 import java.util.Date
 
 class InfoToShareResponse(
     val sharingId: String,
     val userInfo: InfoToShareUserInfo,
     val idealPartner: InfoToShareIdealPartner?,
+    val expiredDate: OffsetDateTime,
 )
 
 class InfoToShareUserInfo(
