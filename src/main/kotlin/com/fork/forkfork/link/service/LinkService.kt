@@ -2,6 +2,7 @@ package com.fork.forkfork.link.service
 
 import com.fork.forkfork.auth.service.AuthService
 import com.fork.forkfork.auth.util.AuthUtil.getUserIdFromSecurityContext
+import com.fork.forkfork.exception.ExceptionUtils.notFoundException
 import com.fork.forkfork.link.domain.entity.Link
 import com.fork.forkfork.link.domain.repository.LinkRepository
 import com.fork.forkfork.link.dto.response.CreateLinkResponse
@@ -77,6 +78,4 @@ class LinkService(
         linkRepository.findByMatchMakerId(matchMakerId).orElseThrow {
             notFoundException("Link not found, matchMakerId : $matchMakerId")
         }
-
-    private fun notFoundException(message: String): ResponseStatusException = throw ResponseStatusException(HttpStatus.NOT_FOUND, message)
 }
