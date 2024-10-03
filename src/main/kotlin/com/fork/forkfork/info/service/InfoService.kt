@@ -80,7 +80,6 @@ class InfoService(val infoRepository: InfoRepository, val infoMapper: InfoMapper
         return InfoToShareResponse(
             sharingId,
             userInfo = infoMapper.toInfoToShareUserInfoFromUserInfo(info.userInfo),
-            idealPartner = infoMapper.toInfoToShareIdealPartnerFromIdealPartner(info.idealPartner),
             expiredDate = expiredDate,
         )
     }

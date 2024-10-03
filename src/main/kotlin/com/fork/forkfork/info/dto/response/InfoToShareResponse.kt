@@ -1,14 +1,12 @@
 package com.fork.forkfork.info.dto.response
 
 import com.fork.forkfork.info.domain.entity.Book
-import com.fork.forkfork.info.domain.entity.Drinking
 import com.fork.forkfork.info.domain.entity.Gender
 import com.fork.forkfork.info.domain.entity.InfoImage
 import com.fork.forkfork.info.domain.entity.Job
 import com.fork.forkfork.info.domain.entity.Location
 import com.fork.forkfork.info.domain.entity.MBTI
 import com.fork.forkfork.info.domain.entity.Movie
-import com.fork.forkfork.info.domain.entity.NumberRange
 import com.fork.forkfork.info.domain.entity.Religion
 import com.fork.forkfork.info.domain.entity.Smoking
 import java.time.OffsetDateTime
@@ -17,12 +15,10 @@ import java.util.Date
 class InfoToShareResponse(
     val sharingId: String,
     val userInfo: InfoToShareUserInfo,
-    val idealPartner: InfoToShareIdealPartner?,
     val expiredDate: OffsetDateTime,
 )
 
 class InfoToShareUserInfo(
-    val name: String,
     val gender: Gender,
     val birthDate: Date,
     val height: Int,
@@ -40,18 +36,4 @@ class InfoToShareUserInfo(
     val book: Book?,
     val movie: Movie?,
     val introduction: String,
-)
-
-class InfoToShareIdealPartner(
-    val ageRange: NumberRange?,
-    val heightRange: NumberRange?,
-    val style: String?,
-    val images: List<InfoImage>?,
-    val location: Location?,
-    val hobbies: List<String>,
-    val religion: Religion,
-    val drinking: Drinking,
-    val smoking: Smoking,
-    val requiredOptions: List<String>,
-    val toMatchMaker: String,
 )

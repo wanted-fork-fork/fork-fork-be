@@ -7,7 +7,6 @@ import com.fork.forkfork.info.dto.DetailedInfoUserInfo
 import com.fork.forkfork.info.dto.request.IdealPartnerRequest
 import com.fork.forkfork.info.dto.request.UserInfoRequest
 import com.fork.forkfork.info.dto.response.ArchivedInfoResponse
-import com.fork.forkfork.info.dto.response.InfoToShareIdealPartner
 import com.fork.forkfork.info.dto.response.InfoToShareUserInfo
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
@@ -35,6 +34,4 @@ interface InfoMapper {
     fun toIdealPartnerFromDetailedInfoIdealPartner(idealPartner: DetailedInfoIdealPartner?): IdealPartner?
 
     fun toInfoToShareUserInfoFromUserInfo(userInfo: UserInfo): InfoToShareUserInfo
-
-    fun toInfoToShareIdealPartnerFromIdealPartner(idealPartner: IdealPartner?): InfoToShareIdealPartner?
 }
