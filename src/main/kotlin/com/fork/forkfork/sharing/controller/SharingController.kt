@@ -17,7 +17,7 @@ class SharingController(val sharingService: SharingService) {
         @PathVariable infoId: String,
     ) = ResponseEntity.ok().body(SaveSharingResponse(sharingService.saveSharing(infoId)))
 
-    @GetMapping("/{sharingId}")
+    @GetMapping("/public/{sharingId}")
     fun getInfoBySharingId(
         @PathVariable sharingId: String,
     ) = ResponseEntity.ok().body(sharingService.getInfoBySharing(sharingId))
