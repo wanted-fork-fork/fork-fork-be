@@ -41,6 +41,7 @@ class ImageService(val amazonS3Client: AmazonS3Client, val s3KeyProperties: S3Ke
     private fun createMetaData(image: MultipartFile): ObjectMetadata {
         val metaData = ObjectMetadata()
         metaData.contentType = image.contentType
+        metaData.contentLength = image.size
         return metaData
     }
 

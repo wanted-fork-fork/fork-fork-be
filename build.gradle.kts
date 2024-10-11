@@ -30,6 +30,7 @@ val awsS3Version = "1.12.729"
 val mapStructVersion = "1.5.5.Final"
 val springMockkVersion = "4.0.2"
 val bucket4jVersion = "8.10.1"
+val jaxbVersion = "2.3.1"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
@@ -50,6 +51,7 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-s3
     implementation("com.amazonaws:aws-java-sdk-s3:$awsS3Version")
+    implementation("javax.xml.bind:jaxb-api:$jaxbVersion")
 
     // MapStruct
     implementation("org.mapstruct:mapstruct:$mapStructVersion")
