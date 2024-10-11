@@ -14,7 +14,7 @@ import java.time.Duration.ofSeconds
 @RestController
 @RequestMapping("api/v1/image")
 class ImageController(val imageService: ImageService) {
-    private val bucket = Bucket.builder().addLimit { it.capacity(30).refillGreedy(30, ofSeconds(30)) }.build()
+    private val bucket = Bucket.builder().addLimit { it.capacity(20).refillGreedy(20, ofSeconds(10)) }.build()
 
     @PostMapping("/upload", consumes = ["multipart/form-data"])
     fun uploadImage(
