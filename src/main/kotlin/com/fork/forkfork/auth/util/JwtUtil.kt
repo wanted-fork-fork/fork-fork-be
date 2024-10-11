@@ -51,15 +51,15 @@ class JwtUtil(private val jwtProperties: JwtProperties) {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token)
             return true
         } catch (e: SecurityException) {
-            log.info(e) { INVALID_JWT_TOKEN_ERROR_MESSAGE }
+            log.info { INVALID_JWT_TOKEN_ERROR_MESSAGE + "token: $token" }
         } catch (e: MalformedJwtException) {
-            log.info(e) { INVALID_JWT_TOKEN_ERROR_MESSAGE }
+            log.info { INVALID_JWT_TOKEN_ERROR_MESSAGE + "token: $token" }
         } catch (e: ExpiredJwtException) {
-            log.info(e) { EXPIRATION_TIME_ERROR_MESSAGE }
+            log.info { EXPIRATION_TIME_ERROR_MESSAGE + "token: $token" }
         } catch (e: UnsupportedJwtException) {
-            log.info(e) { UNSUPPORTED_JWT_TOKEN_ERROR_MESSAGE }
+            log.info { UNSUPPORTED_JWT_TOKEN_ERROR_MESSAGE + "token: $token" }
         } catch (e: SignatureException) {
-            log.info(e) { INVALID_JWT_TOKEN_ERROR_MESSAGE }
+            log.info { INVALID_JWT_TOKEN_ERROR_MESSAGE + "token: $token" }
         }
         return false
     }
